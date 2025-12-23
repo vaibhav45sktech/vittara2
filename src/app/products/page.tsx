@@ -367,7 +367,7 @@ function ProductsPageInner() {
                       {/* Add to Cart Button */}
                       <SignedIn>
                         <button
-                          onClick={() => addToCart(product)}
+                          onClick={() => addToCart({ ...product, color: "", size: 0 })}
                           className="w-full py-3 bg-gradient-to-r from-[#8B4513] to-[#D2691E] text-white font-semibold rounded-xl hover:from-[#D2691E] hover:to-[#8B4513] transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border border-[#8B4513]/20 cursor-pointer"
                         >
                           Add to Cart
@@ -392,6 +392,9 @@ function ProductsPageInner() {
                                   id: product.id,
                                   title: product.title,
                                   image: product.image,
+                                  price: product.price,
+                                  color: "",
+                                  size: 0
                                 })
                           }
                           className="w-full py-3 bg-gradient-to-r from-[#8B4513] to-[#D2691E] text-white font-semibold rounded-xl hover:from-[#D2691E] hover:to-[#8B4513] transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer flex items-center justify-center gap-2"
