@@ -163,9 +163,9 @@ export default function StorePage() {
   const [address, setAddress] = useState({
     name: "",
     street: "",
+    zip: "",
     city: "",
     state: "",
-    zip: "",
     phone: "",
   });
 
@@ -199,7 +199,7 @@ export default function StorePage() {
     0
   );
   const tax = subtotal * 0.18;
-  const shipping = cart.length > 0 ? (subtotal > 2000 ? 0 : 99) : 0;
+  const shipping = 0;
   const total = subtotal + tax + shipping - discount;
 
   // Handle quantity change - FULLY FUNCTIONAL
@@ -423,7 +423,27 @@ export default function StorePage() {
   };
 
   const handleCheckoutClick = () => {
-      setShowAddressForm(true);
+    setShowAddressForm(true);
+  };
+
+  const lookupPincode = async (pincode: string) => {
+    if (pincode.length !== 6) return;
+    try {
+      const response = await fetch(
+        `https://api.postalpincode.in/pincode/${pincode}`
+      );
+      const data = await response.json();
+      if (data && data[0] && data[0].Status === "Success") {
+        const postOffice = data[0].PostOffice[0];
+        setAddress((prev) => ({
+          ...prev,
+          city: postOffice.District,
+          state: postOffice.State,
+        }));
+      }
+    } catch (error) {
+      console.error("Error fetching pincode details:", error);
+    }
   };
 
   return (
@@ -490,6 +510,22 @@ export default function StorePage() {
 
                         <div className="grid grid-cols-2 gap-4">
                             <div>
+                                <label className="block text-sm font-semibold text-[#2C1810] mb-2">ZIP Code</label>
+                                <input 
+                                    type="text" 
+                                    required
+                                    value={address.zip}
+                                    maxLength={6}
+                                    onChange={(e) => {
+                                      const val = e.target.value.replace(/\D/g, "");
+                                      setAddress({...address, zip: val});
+                                      if (val.length === 6) lookupPincode(val);
+                                    }}
+                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#D2691E] focus:ring-4 focus:ring-[#D2691E]/10 transition-all"
+                                    placeholder="ZIP Code"
+                                />
+                            </div>
+                            <div>
                                 <label className="block text-sm font-semibold text-[#2C1810] mb-2">City</label>
                                 <input 
                                     type="text" 
@@ -500,6 +536,9 @@ export default function StorePage() {
                                     placeholder="City"
                                 />
                             </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-semibold text-[#2C1810] mb-2">State</label>
                                 <input 
@@ -509,20 +548,6 @@ export default function StorePage() {
                                     onChange={(e) => setAddress({...address, state: e.target.value})}
                                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#D2691E] focus:ring-4 focus:ring-[#D2691E]/10 transition-all"
                                     placeholder="State"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-semibold text-[#2C1810] mb-2">ZIP Code</label>
-                                <input 
-                                    type="text" 
-                                    required
-                                    value={address.zip}
-                                    onChange={(e) => setAddress({...address, zip: e.target.value})}
-                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#D2691E] focus:ring-4 focus:ring-[#D2691E]/10 transition-all"
-                                    placeholder="ZIP Code"
                                 />
                             </div>
                             <div>
@@ -859,21 +884,7 @@ export default function StorePage() {
                     )}
                   </div>
 
-                  {subtotal > 0 && subtotal < 2000 && (
-                    <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-3 -mx-2">
-                      <p className="text-xs text-amber-900 font-semibold flex items-center gap-2">
-                        <Package className="w-4 h-4 flex-shrink-0" />
-                        Add ₹{(2000 - subtotal).toLocaleString("en-IN")} more
-                        for FREE shipping!
-                      </p>
-                      <div className="mt-2 w-full bg-amber-200 rounded-full h-2">
-                        <div
-                          className="bg-amber-500 h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${(subtotal / 2000) * 100}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                  )}
+
                 </div>
 
                 {/* Total */}
@@ -920,7 +931,7 @@ export default function StorePage() {
                       <Truck className="w-5 h-5 text-purple-600" />
                     </div>
                     <span className="font-medium">
-                      Free Delivery Over ₹2000
+                      Free Delivery on All Orders
                     </span>
                   </div>
                 </div>

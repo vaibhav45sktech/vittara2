@@ -9,6 +9,7 @@ import { useCart } from "@/app/context/CartContext";
 import { useWishlist } from "@/app/context/WishlistContext";
 import products, { Product } from "@/app/data/products";
 import Tooltip from "./Tooltip";
+import { useUser } from "@clerk/nextjs";
 
 const mainLinks = [
   { name: "WOMEN", href: "#" },
@@ -29,6 +30,7 @@ const announcements = [
 ];
 
 const Navbar = () => {
+  const { user, isSignedIn } = useUser();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [searchText, setSearchText] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -245,9 +247,19 @@ const Navbar = () => {
                 <Tooltip content="Profile">
                   <Link
                     href="/account"
-                    className="text-[#2C1810] hover:text-[#D2691E]"
+                    className="text-[#2C1810] hover:text-[#D2691E] flex items-center justify-center"
                   >
-                    <FiUser className="text-lg" />
+                    {isSignedIn && user?.imageUrl ? (
+                      <Image
+                        src={user.imageUrl}
+                        alt="Profile"
+                        width={24}
+                        height={24}
+                        className="rounded-full object-cover border border-[#d2c4b5]"
+                      />
+                    ) : (
+                      <FiUser className="text-lg" />
+                    )}
                   </Link>
                 </Tooltip>
               </div>
@@ -477,7 +489,17 @@ const Navbar = () => {
                   className="flex items-center px-4 py-4 text-sm font-medium text-[#2C1810] hover:text-[#D2691E] hover:bg-white/40 rounded-lg transition-all duration-200"
                   onClick={closeMobileMenu}
                 >
-                  <FiUser className="text-lg mr-3" />
+                  {isSignedIn && user?.imageUrl ? (
+                    <Image
+                      src={user.imageUrl}
+                      alt="Profile"
+                      width={24}
+                      height={24}
+                      className="rounded-full object-cover border border-[#d2c4b5] mr-3"
+                    />
+                  ) : (
+                    <FiUser className="text-lg mr-3" />
+                  )}
                   <span>My Account</span>
                 </Link>
                 <Link

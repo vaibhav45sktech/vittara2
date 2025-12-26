@@ -15,7 +15,7 @@ const products: Product[] = [
     id: 1,
     title: "Royal Red Silk Lehenga",
     description: "Exquisite royal red silk lehenga with intricate golden embroidery and traditional motifs. Perfect for weddings and special occasions. Features heavy work on the blouse and dupatta with delicate beadwork throughout. This stunning piece combines traditional craftsmanship with contemporary design elements.",
-    price: 15999,
+    price: 1,
     size: "M",
     fabric: "silk",
     color: "red",
