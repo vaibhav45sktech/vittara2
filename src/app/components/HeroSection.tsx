@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const productCategories = [
-  { name: "Beige Lehenga", image: "/images/upperLeh1.avif" },
-  { name: "Blue Lehenga", image: "/images/upperLeh2.avif" },
-  { name: "Green Lehenga", image: "/images/upperLeh3.avif" },
-  { name: "Maroon Bridal Lehenga", image: "/images/upperLeh4.avif" },
-  { name: "Pink Lehenga", image: "/images/upperLeh5.avif" },
-  { name: "Red Lehenga", image: "/images/upperLeh6.avif" },
+  { name: "Modern Ivory Gurkha", image: "/images/new-collection/Pant 11/pant1.jpg" },
+  { name: "Classic Navy Gurkha", image: "/images/new-collection/Pant 22/p2.png" },
+  { name: "Formal Linen Shirt", image: "/images/new-collection/Shirts/shirt2.jpg" },
+  { name: "Premium Wine Pant", image: "/images/new-collection/Pant 11/pant3.jpg" },
+  { name: "Olive Casual Shirt", image: "/images/new-collection/Shirts/shirt5.jpg" },
+  { name: "Charcoal Tailored", image: "/images/new-collection/Pant 22/p3.png" },
 ];
 
 // Generate random floating element styles
@@ -66,12 +66,12 @@ export const HeroSection = () => {
           <h1 className="text-3xl md:text-5xl font-bold text-[#2C1810] mb-3">
             Discover Our
             <span className="block text-[#D2691E] font-serif italic">
-              Lehenga Collection
+              Premium Collection
             </span>
           </h1>
           <p className="text-lg text-[#8B4513] max-w-2xl mx-auto leading-relaxed">
-            Explore our exquisite range of handcrafted lehengas, each piece
-            telling a story of tradition and elegance.
+            Explore our exquisite range of handcrafted pants and shirts, each piece
+            tailored for comfort, style, and elegance.
           </p>
         </div>
 

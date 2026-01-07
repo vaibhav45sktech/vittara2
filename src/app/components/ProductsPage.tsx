@@ -21,7 +21,7 @@ interface Product {
   fabric: string;
   color: string;
   images: string[];
-  videoUrl: string;
+  videoUrl?: string;
 }
 
 interface Filters {
@@ -301,19 +301,21 @@ const ProductRow = ({
             </div>
           </div>
 
-          {/* Video Section */}
-          <div className="relative bg-black/5 p-6 flex items-center justify-center">
-            <div className="relative w-full h-[450px] rounded-2xl overflow-hidden bg-black shadow-2xl">
-              <video
-                src={product.videoUrl}
-                className="w-full h-full object-cover"
-                poster={product.images[0]}
-                muted
-                autoPlay
-                loop
-              />
+          {/* Video Section - Only render if videoUrl exists */}
+          {product.videoUrl && (
+            <div className="relative bg-black/5 p-6 flex items-center justify-center">
+              <div className="relative w-full h-[450px] rounded-2xl overflow-hidden bg-black shadow-2xl">
+                <video
+                  src={product.videoUrl}
+                  className="w-full h-full object-cover"
+                  poster={product.images[0]}
+                  muted
+                  autoPlay
+                  loop
+                />
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Description Section */}
           <div className="p-8 flex flex-col justify-between bg-gradient-to-br from-white to-[#F5F1EA]/30">
@@ -431,11 +433,11 @@ export default function ProductsPage() {
           <h1 className="text-4xl md:text-6xl font-bold text-[#2C1810] mb-4 tracking-wide">
             Exquisite
             <span className="block text-[#D2691E] italic font-serif">
-              Lehengas
+               Premium Collection
             </span>
           </h1>
           <p className="text-xl text-[#8B4513] mb-8 font-light">
-            Handcrafted with tradition, designed for elegance
+            Tailored perfection, designed for the modern connoisseur
           </p>
 
           <div className="flex justify-center space-x-2 mb-8">

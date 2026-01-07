@@ -7,89 +7,84 @@ export interface Product {
   fabric: string;
   color: string;
   images: string[]; // Array of 4 different pose images
-  videoUrl: string;
+  videoUrl?: string; // Made optional
 }
 
 const products: Product[] = [
   {
     id: 1,
-    title: "Royal Red Silk Lehenga",
-    description: "Exquisite royal red silk lehenga with intricate golden embroidery and traditional motifs. Perfect for weddings and special occasions. Features heavy work on the blouse and dupatta with delicate beadwork throughout. This stunning piece combines traditional craftsmanship with contemporary design elements.",
-    price: 12500,
-    size: "M",
-    fabric: "silk",
-    color: "red",
+    title: "Modern Ivory Gurkha Pant",
+    description: "A masterpiece of modern tailoring, this Ivory Gurkha pant features a high-waisted design with signature side buckles. Crafted from premium cotton blend for breathability and comfort, it offers a refined silhouette perfect for smart casual or semi-formal occasions.",
+    price: 11999,
+    size: "32",
+    fabric: "cotton-blend",
+    color: "ivory",
     images: [
-      "/images/row1/PIY_7877.JPG",
-      "/images/row1/PIY_7884.JPG", 
-      "/images/row1/PIY_7899.JPG",
-      "/images/row1/PIY_7902.JPG"
-    ],
-    videoUrl: "/images/row1/PIY_7909.MP4"
+      "/images/new-collection/Pant 11/pant1.jpg",
+      "/images/new-collection/Pant 11/pant3.jpg",
+      "/images/new-collection/Pant 11/pant4.jpg",
+      "/images/new-collection/Pant 11/pant5.jpg"
+    ]
   },
   {
     id: 2,
-    title: "Golden Yellow Bridal Lehenga",
-    description: "Stunning golden yellow bridal lehenga with heavy zardozi work and mirror embellishments. Features a fully embroidered blouse with intricate patterns and a matching dupatta. This masterpiece showcases the finest Indian craftsmanship with luxurious silk fabric and premium quality threads.",
-    price: 22500,
-    size: "L",
-    fabric: "silk",
-    color: "yellow",
+    title: "Classic Navy Tailored Gurkha",
+    description: "Sharp, sophisticated, and timeless. This Classic Navy Gurkha pant brings sartorial elegance to your wardrobe. The structured fit, combined with the traditional Gurkha waistband, provides a commanding presence suitable for business and formal settings.",
+    price: 13999,
+    size: "34",
+    fabric: "wool-blend",
+    color: "navy",
     images: [
-      "/images/row2/PIY_7926.JPG",
-      "/images/row2/PIY_7930.JPG",
-      "/images/row2/PIY_7935.JPG", 
-      "/images/row2/PIY_7937.JPG"
-    ],
-    videoUrl: "/images/row2/PIY_7948.MP4"
+      "/images/new-collection/Pant 22/p2.png",
+      "/images/new-collection/Pant 22/p3.png",
+      "/images/new-collection/Pant 22/p4.jpg",
+      "/images/new-collection/Pant 22/p5.jpg"
+    ]
   },
   {
     id: 3,
-    title: "Elegant Cotton Red Lehenga",
-    description: "Beautiful cotton red lehenga with block print designs and traditional motifs. Comfortable yet elegant, perfect for daytime events and celebrations. Features lightweight cotton fabric with vibrant colors and comfortable fit. Ideal for festive occasions and cultural events.",
-    price: 3999,
-    size: "S",
-    fabric: "cotton",
-    color: "red",
+    title: "Olive Drab Casual Shirt",
+    description: "Effortlessly stylish, this Olive Drab shirt is cut from high-quality linen. Designed for the modern man, it features a relaxed fit ensuring comfort throughout the day while maintaining a crisp look. Pairs perfectly with our Gurkha pants.",
+    price: 4999,
+    size: "L",
+    fabric: "linen",
+    color: "olive",
     images: [
-      "/images/row3/PIY_7966.JPG",
-      "/images/row3/PIY_7971.JPG",
-      "/images/row3/PIY_7978.JPG",
-      "/images/row3/PIY_7988.JPG"
-    ],
-    videoUrl: "/images/row3/PIY_7998.MP4"
+      "/images/new-collection/Shirts/shirt5.jpg",
+      "/images/new-collection/Shirts/shirt2.jpg",
+      "/images/new-collection/Shirts/shirt6.jpg",
+      "/images/new-collection/Shirts/shirt7.jpg"
+    ]
   },
   {
     id: 4,
-    title: "Premium Silk Yellow Lehenga",
-    description: "Premium silk yellow lehenga with contemporary design elements and traditional embroidery. Features modern silhouette with classic Indian aesthetics. Hand-embroidered with silk threads and adorned with delicate sequins. Perfect blend of tradition and modernity.",
-    price: 8750,
-    size: "XL",
-    fabric: "silk", 
-    color: "yellow",
+    title: "Crimson Red Statement Pant",
+    description: "Make a bold statement with these Crimson Red pants. Featuring a contemporary cut and vibrant hue, they are designed for those who appreciate distinct style. The customized fabric ensures durability while offering a smooth, premium hand feel.",
+    price: 9999,
+    size: "30",
+    fabric: "cotton",
+    color: "crimson",
     images: [
-      "/images/row4/PIY_8015.JPG",
-      "/images/row4/PIY_8019.JPG",
-      "/images/row4/PIY_8025.JPG",
-      "/images/row4/PIY_8029.JPG"
-    ],
-    videoUrl: "/images/row4/PIY_8053.MP4"
+      "/images/new-collection/Pant 11/pant7.jpg",
+      "/images/new-collection/Pant 11/pant8.jpg",
+      "/images/new-collection/Pant 11/pant9.jpg",
+      "/images/new-collection/Pant 11/pant14.jpg"
+    ]
   },
   {
     id: 5,
-    title: "Designer Cotton Yellow Lehenga",
-    description: "Designer cotton yellow lehenga with unique patterns and comfortable fit. Features innovative design elements with traditional Indian aesthetics. Made from premium cotton fabric with vibrant prints and modern styling. Perfect for casual celebrations and day events.",
-    price: 5250,
-    size: "M",
-    fabric: "cotton",
-    color: "yellow", 
+    title: "Slate Grey Formal Trousers",
+    description: "The epitome of versatility, these Slate Grey trousers are an essential addition to any curated wardrobe. The fabric is lightweight yet structured, offering a flawless drape. Ideal for daily office wear or evening gatherings.",
+    price: 10499,
+    size: "36",
+    fabric: "poly-viscose",
+    color: "grey",
     images: [
-      "/images/row5/PIY_8077.JPG",
-      "/images/row5/PIY_8086.JPG",
-      "/images/row5/PIY_8089.JPG",
-      "/images/row5/PIY_8096.JPG"
-    ],
-    videoUrl: "/images/row5/PIY_8108.MP4"
+      "/images/new-collection/Pant 22/p6.jpg",
+      "/images/new-collection/Pant 22/p7.jpg",
+      "/images/new-collection/Pant 22/p8.jpg",
+      "/images/new-collection/Pant 22/p9.jpg"
+    ]
   }
 ];
 

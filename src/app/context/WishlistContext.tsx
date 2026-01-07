@@ -10,6 +10,7 @@ import {
 import { useAuth } from "@clerk/nextjs";
 
 type WishlistItem = {
+  category?: string;
   size: string | number;
   color: string;
   price: number;

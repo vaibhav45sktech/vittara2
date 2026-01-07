@@ -10,6 +10,7 @@ import {
 import { useAuth } from "@clerk/nextjs";
 
 export type CartItem = {
+  category?: string;
   color: string;
   size: string | number;
   id: number;
