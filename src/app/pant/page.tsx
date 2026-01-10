@@ -2,7 +2,7 @@
 
 import ProductListing from "../components/ProductListing";
 
-const ALL_SECTIONS = [
+const PANT_SECTIONS = [
   {
     id: "pant-11",
     category: "modern" as const,
@@ -40,33 +40,15 @@ const ALL_SECTIONS = [
       "Low heat iron",
       "Hang after use to maintain shape"
     ]
-  },
-  {
-    id: "shirts",
-    category: "shirt" as const,
-    title: "FITTARA Premium Shirts",
-    description: "Experience the epitome of style and comfort with our curated collection of premium shirts. From crisp formal wear to relaxed casual styles, each piece is crafted with attention to detail and high-quality fabrics to ensure you look your best.",
-    details: [
-      "Premium quality fabrics",
-      "Expert tailoring for perfect fit",
-      "Versatile designs",
-      "Comfortable for all-day wear"
-    ],
-    care: [
-      "Machine wash cold",
-      "Tumble dry low",
-      "Iron on medium heat",
-      "Do not bleach"
-    ]
   }
 ];
 
-export default function ProductsPage() {
+export default function PantPage() {
   return (
     <ProductListing 
-      sections={ALL_SECTIONS} 
-      pageTitle="The FITTARA Collection"
-      subTitle="Discover our complete range of premium apparel."
+      sections={PANT_SECTIONS} 
+      pageTitle="The FITTARA Pant Collection"
+      subTitle="Premium Gurkha pants designed for modern elegance and classic style."
     />
   );
 }

@@ -12,8 +12,8 @@ import Tooltip from "./Tooltip";
 import { useUser } from "@clerk/nextjs";
 
 const mainLinks = [
-  { name: "PANT", href: "#" },
-  { name: "SHIRT", href: "#" }
+  { name: "PANT", href: "/pant" },
+  { name: "SHIRT", href: "/shirt" }
 ];
 
 const extraLinks = [
