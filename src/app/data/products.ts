@@ -17,7 +17,7 @@ const products: Product[] = [
   {
     id: 1,
     title: "Pearled Ivory White pantenga",
-    price: 11999,
+    price: 1,
     image: "/images/new-collection/Pant 11/pant1.jpg",
     slug: "pearled-ivory-pantenga",
     tag: "SEMI-STITCHED",

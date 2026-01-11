@@ -82,9 +82,8 @@ export default function StorePage() {
     (total, item) => total + item.price * item.quantity,
     0
   );
-  const tax = subtotal * 0.18;
   const shipping = 0;
-  const total = subtotal + tax + shipping - discount;
+  const total = subtotal + shipping - discount;
 
   // Handle quantity change - FULLY FUNCTIONAL
   const handleQuantityChange = (item: CartItem, change: number) => {
@@ -829,10 +828,7 @@ export default function StorePage() {
                     </div>
                   )}
 
-                  <div className="flex justify-between text-gray-700">
-                    <span className="font-medium">GST (18%)</span>
-                    <span className="font-bold">₹{tax.toFixed(0)}</span>
-                  </div>
+
 
                   <div className="flex justify-between text-gray-700">
                     <span className="flex items-center gap-1 font-medium">
@@ -859,9 +855,7 @@ export default function StorePage() {
                       ₹{total.toLocaleString("en-IN")}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500 text-center mt-2">
-                    Inclusive of all taxes
-                  </p>
+
                 </div>
 
                 {/* Checkout Button */}
