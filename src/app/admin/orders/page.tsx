@@ -160,7 +160,7 @@ export default function AdminOrdersPage() {
             <button
               type="submit"
               disabled={checkingPasscode}
-              className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50 font-medium"
+              className="w-full cursor-pointer bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50 font-medium"
             >
               {checkingPasscode ? 'Verifying...' : 'Unlock Dashboard'}
             </button>

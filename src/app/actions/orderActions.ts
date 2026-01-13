@@ -17,5 +17,6 @@ export async function getOrders() {
 }
 
 export async function verifyPasscode(passcode: string) {
-    return passcode === process.env.ADMIN_PASSCODE;
+    const validPasscode = process.env.ADMIN_PASSCODE?.trim() || 'default_secure_passcode_if_not_set';
+    return passcode.trim() === validPasscode;
 }
