@@ -122,6 +122,13 @@ export default function Footer() {
               </Link>
             </div>
           </div>
+
+          <Link
+            href="/"
+            className="bg-white text-black px-6 py-2 rounded-full text-xs font-bold hover:bg-gray-200 transition"
+          >
+            Back to Home
+          </Link>
         </div>
 
         {/* Copyright */}
