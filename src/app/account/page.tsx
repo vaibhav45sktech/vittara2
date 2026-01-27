@@ -65,6 +65,13 @@ const FloatingParticles = () => (
 // Import CartItem type
 import { CartItem } from "@/app/context/CartContext";
 
+// Declare global Razorpay type
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
+
 // Checkout Dashboard Component
 const CheckoutDashboard = () => {
   const { user } = useUser();
@@ -76,16 +83,95 @@ const CheckoutDashboard = () => {
   // Calculate cart total
   const getCartTotal = () => cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 
+  // Load Razorpay script
+  const loadRazorpayScript = (): Promise<boolean> => {
+    return new Promise((resolve) => {
+      if (window.Razorpay) {
+        resolve(true);
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
   const handleCheckout = async () => {
     if (cart.length === 0) return;
 
     setIsProcessing(true);
-    // Simulate processing - in real app, integrate with Razorpay
-    await new Promise(resolve => setTimeout(resolve, 1500));
 
-    // Redirect to payment or show payment modal
-    alert("Redirecting to payment gateway...");
-    setIsProcessing(false);
+    try {
+      // Load Razorpay SDK
+      const res = await loadRazorpayScript();
+      if (!res) {
+        alert("Razorpay SDK failed to load. Please check your internet connection.");
+        setIsProcessing(false);
+        return;
+      }
+
+      // Create order via API
+      const orderRes = await fetch("/api/razorpay/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: getCartTotal(),
+          currency: "INR",
+          customerDetails: {
+            name: user?.firstName || "Customer",
+            email: user?.emailAddresses?.[0]?.emailAddress || "",
+          },
+          items: cart,
+        }),
+      });
+
+      if (!orderRes.ok) {
+        alert("Failed to create order. Please try again.");
+        setIsProcessing(false);
+        return;
+      }
+
+      const orderData = await orderRes.json();
+
+      // Razorpay checkout options
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_1234567890",
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "FITTARA",
+        description: "Premium Clothing Order",
+        image: "/images/logo2.png",
+        order_id: orderData.id,
+        handler: async function (response: any) {
+          // Payment successful
+          alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+          clearCart();
+        },
+        prefill: {
+          name: user?.firstName || "",
+          email: user?.emailAddresses?.[0]?.emailAddress || "",
+        },
+        theme: {
+          color: "#F59E0B", // Amber color to match the theme
+        },
+        modal: {
+          ondismiss: function () {
+            setIsProcessing(false);
+          },
+        },
+      };
+
+      // Open Razorpay checkout
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+      setIsProcessing(false);
+    } catch (error) {
+      console.error("Payment error:", error);
+      alert("Something went wrong during payment. Please try again.");
+      setIsProcessing(false);
+    }
   };
 
   return (
