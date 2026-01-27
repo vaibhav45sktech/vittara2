@@ -381,6 +381,15 @@ function ProductListingInner({ sections, pageTitle, subTitle }: ProductListingPr
                                   Add to Cart
                                 </button>
                                 <button
+                                  onClick={() => {
+                                    addToCart({ ...product, color: "", size: 0, fit: "" });
+                                    window.location.href = "/account";
+                                  }}
+                                  className="w-full py-2.5 cursor-pointer bg-white text-gray-900 text-sm font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 shadow-lg transform hover:-translate-y-0.5 border border-gray-200"
+                                >
+                                  Buy Now
+                                </button>
+                                <button
                                   onClick={() =>
                                     inWishlist
                                       ? removeFromWishlist(product.id)
@@ -394,8 +403,8 @@ function ProductListingInner({ sections, pageTitle, subTitle }: ProductListingPr
                                       })
                                   }
                                   className={`w-full py-2.5 cursor-pointer text-sm font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-1.5 transform hover:-translate-y-0.5 ${inWishlist
-                                      ? "bg-red-500/20 text-red-400 border border-red-500/30"
-                                      : "bg-gray-800 text-gray-300 border border-gray-600 hover:border-amber-500/50 hover:text-amber-400"
+                                    ? "bg-red-500/20 text-red-400 border border-red-500/30"
+                                    : "bg-gray-800 text-gray-300 border border-gray-600 hover:border-amber-500/50 hover:text-amber-400"
                                     }`}
                                 >
                                   <FaHeart className={inWishlist ? "text-red-400" : ""} />
