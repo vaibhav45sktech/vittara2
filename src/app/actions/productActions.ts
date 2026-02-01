@@ -25,7 +25,7 @@ export async function getAllProducts() {
       size: product.variants[0]?.size || '', // Get first size from variants
       fabric: product.description.includes('cotton') ? 'cotton' : product.description.includes('silk') ? 'silk' : 'cotton', // Default fabric
       color: product.variants[0]?.color || 'multicolor', // Default color
-      category: product.name.toLowerCase().includes('shirt') ? 'shirt' : product.name.toLowerCase().includes('pant') || product.name.toLowerCase().includes('gurkha') ? (product.name.toLowerCase().includes('classic') ? 'classic' : 'modern') : 'shirt' as const,
+      category: (product.name.toLowerCase().includes('shirt') ? 'shirt' : product.name.toLowerCase().includes('pant') || product.name.toLowerCase().includes('gurkha') ? (product.name.toLowerCase().includes('classic') ? 'classic' : 'modern') : 'shirt') as 'modern' | 'classic' | 'shirt',
     }));
   } catch (error) {
     console.error('Error fetching products:', error);
@@ -61,7 +61,7 @@ export async function getProductsByCategory(category: string) {
       size: product.variants[0]?.size || '', // Get first size from variants
       fabric: product.description.includes('cotton') ? 'cotton' : product.description.includes('silk') ? 'silk' : 'cotton',
       color: product.variants[0]?.color || 'multicolor',
-      category: category === 'pant' ? (product.name.toLowerCase().includes('classic') ? 'classic' : 'modern') : category === 'shirt' ? 'shirt' : 'shirt' as any,
+      category: (category === 'pant' ? (product.name.toLowerCase().includes('classic') ? 'classic' : 'modern') : category === 'shirt' ? 'shirt' : 'shirt') as 'modern' | 'classic' | 'shirt',
     }));
   } catch (error) {
     console.error(`Error fetching ${category} products:`, error);
@@ -110,7 +110,7 @@ export async function getProductById(id: string | number) {
       size: sizes[0] || '',
       fabric: 'cotton',
       color: colors[0] || 'multicolor',
-      category: product.name.toLowerCase().includes('shirt') ? 'shirt' : product.name.toLowerCase().includes('pant') || product.name.toLowerCase().includes('gurkha') ? (product.name.toLowerCase().includes('classic') ? 'classic' : 'modern') : 'shirt' as const,
+      category: (product.name.toLowerCase().includes('shirt') ? 'shirt' : product.name.toLowerCase().includes('pant') || product.name.toLowerCase().includes('gurkha') ? (product.name.toLowerCase().includes('classic') ? 'classic' : 'modern') : 'shirt') as 'modern' | 'classic' | 'shirt',
       variants: product.variants,
       reviews: product.reviews,
     };
