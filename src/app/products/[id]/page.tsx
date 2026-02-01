@@ -12,17 +12,17 @@ export async function generateMetadata({ params }: { params: Promise<ProductPage
   
   if (!product) {
     return {
-      title: "Product Not Found | FITTARA",
+      title: "Product Not Found | Fittara",
       description: "The product you're looking for doesn't exist."
     };
   }
 
   return {
-    title: `${product.title} | FITTARA Premium Apparel`,
-    description: `Discover the ${product.title} from FITTARA. Premium quality ${product.category} crafted with attention to detail.`,
+    title: `${product.title} | Fittara Premium Apparel`,
+    description: `Discover the ${product.title} from Fittara. Premium quality ${product.category} crafted with attention to detail.`,
     openGraph: {
       title: product.title,
-      description: `Premium ${product.category} from FITTARA`,
+      description: `Premium ${product.category} from Fittara`,
       images: [product.image],
     },
   };

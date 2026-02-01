@@ -228,7 +228,7 @@ function ProductListingInner({ sections, pageTitle, subTitle }: ProductListingPr
             </h1>
           ) : (
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-wide">
-              The <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent italic font-serif">FITTARA</span> Collection
+              The <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent italic font-serif">Fittara</span> Collection
             </h1>
           )}
 

@@ -91,10 +91,10 @@ export default function Footer() {
           <ul className="space-y-1.5 sm:space-y-2 text-white text-xs sm:text-sm">
             <li>
               <a
-                href="mailto:fittaraofficial@gmail.com"
+                href="mailto:Fittaraofficial@gmail.com"
                 className="hover:text-gray-300 transition break-all sm:break-normal"
               >
-                fittaraofficial@gmail.com
+                Fittaraofficial@gmail.com
               </a>
             </li>
             <li>+91 70467 89748</li>
@@ -118,10 +118,10 @@ export default function Footer() {
               <Link href="https://www.facebook.com/share/1BZn1bHdS9/" className="hover:text-gray-400 transition">
                 <FaFacebookF />
               </Link>
-              <Link href="https://www.instagram.com/fittara.shop?utm_source=qr&igsh=MWtuMjFiaXhuZGJiNg%3D%3D" className="hover:text-gray-400 transition">
+              <Link href="https://www.instagram.com/Fittara.shop?utm_source=qr&igsh=MWtuMjFiaXhuZGJiNg%3D%3D" className="hover:text-gray-400 transition">
                 <FaInstagram />
               </Link>
-              <Link href="https://youtube.com/@fittaraofficial?si=vVwYX7w_gjhXUyje" className="hover:text-gray-400 transition">
+              <Link href="https://youtube.com/@Fittaraofficial?si=vVwYX7w_gjhXUyje" className="hover:text-gray-400 transition">
                 <FaYoutube />
               </Link>
             </div>

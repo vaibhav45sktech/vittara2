@@ -366,7 +366,7 @@ const LoginPrompt = () => {
       </motion.div>
 
       <h2 className="text-3xl font-bold text-white mb-4">
-        Welcome to <span className="text-amber-400 italic font-serif">FITTARA</span>
+        Welcome to <span className="text-amber-400 italic font-serif">Fittara</span>
       </h2>
       <p className="text-gray-400 mb-8">
         Sign in to access your cart, wishlist, and complete your purchase

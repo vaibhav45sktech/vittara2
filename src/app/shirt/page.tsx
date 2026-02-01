@@ -4,8 +4,8 @@ const SHIRT_SECTIONS = [
   {
     id: "shirts",
     category: "shirt" as const,
-    title: "FITTARA Premium Shirts",
-    description: "Elevate your wardrobe with our latest collection of premium shirts. Meticulously crafted from high-quality fabrics, these shirts offer the perfect balance of sophistication and comfort. Whether for a formal setting or a casual outing, find your perfect fit with FITTARA.",
+    title: "Fittara Premium Shirts",
+    description: "Elevate your wardrobe with our latest collection of premium shirts. Meticulously crafted from high-quality fabrics, these shirts offer the perfect balance of sophistication and comfort. Whether for a formal setting or a casual outing, find your perfect fit with Fittara.",
     details: [
       "Selected premium fabrics including Linen, Cotton, and Silk blends",
       "Tailored for a sharp, modern fit",
@@ -25,7 +25,7 @@ export default function ShirtPage() {
   return (
     <ProductListingServer 
       sections={SHIRT_SECTIONS} 
-      pageTitle="The FITTARA Shirt Collection"
+      pageTitle="The Fittara Shirt Collection"
       subTitle="Refined shirts for every occasion."
     />
   );

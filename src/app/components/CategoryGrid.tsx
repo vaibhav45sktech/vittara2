@@ -25,7 +25,7 @@ const CategoryGrid = () => {
                         muted
                         playsInline
                     >
-                        <source src="/videos/fittara-ad.mp4" type="video/mp4" />
+                        <source src="/videos/Fittara-ad.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
 

@@ -24,7 +24,7 @@ const getProductUrl = (product: Product): string => {
 const navLinks = [
   { name: "PANT", href: "/pant" },
   { name: "SHIRT", href: "/shirt" },
-  { name: "Combos", href: "/" },
+  { name: "COMBOS", href: "/combo" },
   { name: "FEEDBACKS", href: "/review" },
   { name: "PRODUCTS", href: "/products" },
 ];
@@ -218,8 +218,8 @@ const Navbar = () => {
             <div className="flex-1 flex justify-center lg:justify-start">
               <Link href="/" aria-label="Home" className="flex items-center gap-3 group">
                 <Image
-                  src="/images/fittara-symbol-white.png"
-                  alt="Fittara Symbol"
+                  src="/images/bird-logo2.png"
+                  alt="Fittara Bird Logo"
                   width={120}
                   height={120}
                   className={`transition-all duration-300 object-contain ${scrolled ? "h-10 w-auto lg:h-12" : "h-12 w-auto lg:h-16"
@@ -228,10 +228,10 @@ const Navbar = () => {
                 />
                 <div className={`flex flex-col justify-center transition-all duration-300 text-white ${scrolled ? "scale-90 origin-left" : "scale-100"}`}>
                   <span className="font-serif leading-none tracking-wide text-xl lg:text-2xl">
-                    FITTARA
+                    Fittara
                   </span>
                   <span className="text-[0.45rem] lg:text-[0.5rem] tracking-[0.15em] font-medium text-gray-400 mt-0.5 whitespace-nowrap">
-                    YOUR VISION. YOUR FIT. YOUR FITTARA
+                    YOUR VISION. YOUR FIT. YOUR Fittara
                   </span>
                 </div>
               </Link>
@@ -426,18 +426,18 @@ const Navbar = () => {
             <div className="flex items-center justify-between p-4 border-b border-gray-800 bg-gray-900 shadow-sm">
               <div className="flex items-center gap-2">
                 <Image
-                  src="/images/fittara-symbol-white.png"
-                  alt="Fittara Symbol"
+                  src="/images/bird-logo2.png"
+                  alt="Fittara Bird Logo"
                   width={80}
                   height={80}
                   className="h-10 w-auto"
                 />
                 <div className="flex flex-col text-white">
                   <span className="font-serif text-xl leading-none tracking-wide">
-                    FITTARA
+                    Fittara
                   </span>
                   <span className="text-[0.4rem] tracking-[0.15em] font-medium opacity-80 whitespace-nowrap">
-                    YOUR VISION. YOUR FIT. YOUR FITTARA
+                    YOUR VISION. YOUR FIT. YOUR Fittara
                   </span>
                 </div>
               </div>
