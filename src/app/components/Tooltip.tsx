@@ -20,7 +20,7 @@ const Tooltip: React.FC<TooltipProps> = ({ children, content }) => {
       {isVisible && (
         <div className="absolute top-full mt-2 px-2 py-1 text-xs font-medium text-white bg-black rounded shadow-lg z-50 whitespace-nowrap transition-opacity duration-200 animate-fade-in-up">
           {content}
-          {/* Arrow */}
+        
           <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-black rotate-45"></div>
         </div>
       )}
