@@ -11,7 +11,7 @@ async function seedDatabase() {
   
   const adapter = new PrismaPg(pool);
 
-  // Create a direct prisma client with adapter
+
   const prisma = new PrismaClient({ adapter });
 
   try {

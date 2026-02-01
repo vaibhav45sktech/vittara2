@@ -2,6 +2,9 @@ import ProductPage from "@/app/components/ProductPage";
 import { notFound } from "next/navigation";
 import { getProductById, getProductsByCategory } from "@/app/actions/productActions";
 
+// Force dynamic rendering for this page
+export const dynamic = 'force-dynamic';
+
 interface ProductPageParams {
   id: string;
 }

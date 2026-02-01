@@ -1,5 +1,4 @@
 import ProductListing from "../ProductListing";
-import { getAllProducts } from "@/app/actions/productActions";
 
 interface Section {
   id: string;
@@ -16,15 +15,13 @@ interface ProductListingServerProps {
   subTitle?: string;
 }
 
-export default async function ProductListingServer({ 
+export default function ProductListingServer({ 
   sections, 
   pageTitle, 
   subTitle 
 }: ProductListingServerProps) {
-  const products = await getAllProducts();
-
   // Pass the sections and page info to the client component
-  // The client component will filter the products based on the sections
+  // The client component will fetch and filter the products
   return (
     <ProductListing 
       sections={sections} 
