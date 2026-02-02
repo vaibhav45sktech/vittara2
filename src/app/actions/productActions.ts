@@ -17,8 +17,8 @@ export async function getAllProducts() {
     if (dbProducts.length > 0) {
       console.log(`Loaded ${dbProducts.length} products from database`);
       // Transform the data to match the expected format
-      return dbProducts.map(product => ({
-        id: parseInt(product.id) || 0, // Convert to number for frontend compatibility
+      return dbProducts.map((product, index) => ({
+        id: index + 1, // Use sequential IDs for frontend
         originalId: product.id, // Keep original string ID for URL routing
         title: product.name,
         price: Math.round(product.price), // Convert to integer for consistency
@@ -29,7 +29,7 @@ export async function getAllProducts() {
         size: product.variants[0]?.size || '', // Get first size from variants
         fabric: product.description.includes('cotton') ? 'cotton' : product.description.includes('silk') ? 'silk' : 'cotton', // Default fabric
         color: product.variants[0]?.color || 'multicolor', // Default color
-        category: (product.name.toLowerCase().includes('shirt') ? 'shirt' : product.name.toLowerCase().includes('pant') || product.name.toLowerCase().includes('gurkha') ? (product.name.toLowerCase().includes('classic') ? 'classic' : 'modern') : 'shirt') as 'modern' | 'classic' | 'shirt',
+        category: product.category === 'pant' ? 'modern' : (product.category as 'modern' | 'classic' | 'shirt'), // Map 'pant' to 'modern' for frontend
       }));
     }
   } catch (error) {
@@ -44,12 +44,19 @@ export async function getAllProducts() {
 // Fetch products by category
 export async function getProductsByCategory(category: string) {
   try {
+    // Map category parameter to database category values
+    let categoryFilter: string | string[];
+    if (category === 'pant') {
+      categoryFilter = ['modern', 'classic']; // Both pant categories
+    } else {
+      categoryFilter = category; // 'shirt', 'modern', or 'classic'
+    }
+
     const dbProducts = await prisma.product.findMany({
       where: {
-        name: {
-          contains: category,
-          mode: 'insensitive',
-        },
+        category: Array.isArray(categoryFilter) 
+          ? { in: categoryFilter }
+          : categoryFilter,
       },
       include: {
         variants: true,
@@ -58,8 +65,8 @@ export async function getProductsByCategory(category: string) {
     });
 
     if (dbProducts.length > 0) {
-      return dbProducts.map(product => ({
-        id: parseInt(product.id) || 0,
+      return dbProducts.map((product, index) => ({
+        id: index + 1000, // Use offset to avoid conflicts with getAllProducts
         originalId: product.id, // Keep original string ID for URL routing
         title: product.name,
         price: Math.round(product.price),
@@ -70,7 +77,7 @@ export async function getProductsByCategory(category: string) {
         size: product.variants[0]?.size || '', // Get first size from variants
         fabric: product.description.includes('cotton') ? 'cotton' : product.description.includes('silk') ? 'silk' : 'cotton',
         color: product.variants[0]?.color || 'multicolor',
-        category: (category === 'pant' ? (product.name.toLowerCase().includes('classic') ? 'classic' : 'modern') : category === 'shirt' ? 'shirt' : 'shirt') as 'modern' | 'classic' | 'shirt',
+        category: product.category === 'pant' ? 'modern' : (product.category as 'modern' | 'classic' | 'shirt'), // Map 'pant' to 'modern' for frontend
       }));
     }
   } catch (error) {
@@ -105,6 +112,11 @@ export async function getProductById(id: string | number) {
             stock: true,
           }
         },
+        images: {
+          orderBy: {
+            order: 'asc',
+          }
+        },
         reviews: true,
       },
     });
@@ -113,26 +125,32 @@ export async function getProductById(id: string | number) {
       // Get unique sizes and colors from variants
       const sizes = Array.from(new Set(product.variants.map(v => v.size)));
       const colors = Array.from(new Set(product.variants.map(v => v.color)));
+      
+      // Get all images or fallback to main image
+      const productImages = product.images.length > 0 
+        ? product.images.map(img => img.url)
+        : [product.image];
 
       return {
-        id: parseInt(product.id) || 0, // Keep as number for frontend compatibility
+        id: Math.abs(product.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)), // Generate numeric ID from string
         title: product.name,
         description: product.description,
         price: Math.round(product.price),
         image: product.image,
+        images: productImages,
         slug: product.name.toLowerCase().replace(/\s+/g, '-'),
         tag: 'READY TO WEAR',
         colors: colors,
         size: sizes[0] || '',
         fabric: 'cotton',
         color: colors[0] || 'multicolor',
-        category: (product.name.toLowerCase().includes('shirt') ? 'shirt' : product.name.toLowerCase().includes('pant') || product.name.toLowerCase().includes('gurkha') ? (product.name.toLowerCase().includes('classic') ? 'classic' : 'modern') : 'shirt') as 'modern' | 'classic' | 'shirt',
+        category: product.category === 'pant' ? 'modern' : (product.category as 'modern' | 'classic' | 'shirt'), // Map 'pant' to 'modern' for frontend
         variants: product.variants,
         reviews: product.reviews,
       };
     }
   } catch (error) {
-    console.error('Error fetching product by ID from database:', error);
+    console.error('Error fetching product by ID from database:', error instanceof Error ? error.message : String(error));
   }
 
   // Fallback to static products data
@@ -143,6 +161,7 @@ export async function getProductById(id: string | number) {
   if (staticProduct) {
     return {
       ...staticProduct,
+      images: [staticProduct.image], // Wrap single image in array
       description: `Premium ${staticProduct.fabric} ${staticProduct.category} in ${staticProduct.color} color. Perfect for any occasion.`,
       variants: [
         {

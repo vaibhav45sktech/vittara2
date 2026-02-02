@@ -12,7 +12,6 @@ import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Navbar from "./Navbar";
 import ProductFilter from "./ProductFilter";
 import { getAllProducts } from "@/app/actions/productActions";
-
 // Interfaces
 interface Review {
   productId: number;
@@ -45,6 +44,14 @@ interface ProductListingProps {
 }
 
 const FloatingElements = () => {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  if (!mounted) return null;
+  
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {[...Array(20)].map((_, i) => (
