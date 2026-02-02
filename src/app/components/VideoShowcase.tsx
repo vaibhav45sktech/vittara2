@@ -9,7 +9,7 @@ const VideoShowcase = () => {
     "https://www.instagram.com/reel/DTNsnTfAQLU/",
     "https://www.instagram.com/reel/DTuGZmJAc7e/",
   ];
-  
+
   return (
     <section className="relative w-full py-16 md:py-24 bg-gradient-to-b from-black to-gray-900">
       <div className="container mx-auto px-4">
@@ -44,7 +44,7 @@ const VideoShowcase = () => {
                 className="w-full h-full"
                 frameBorder="0"
                 scrolling="no"
-                allowTransparency={true}
+
                 allow="encrypted-media"
                 loading="lazy"
               />

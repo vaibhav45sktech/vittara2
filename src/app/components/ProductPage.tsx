@@ -318,7 +318,7 @@ const RelatedProducts = ({ products }: { products: Product[] }) => {
           {products.slice(0, 4).map((product) => (
             <Link
               key={product.id}
-              href={`/products/${product.id}`}
+              href={`/products/${product.originalId || product.id}`}
               className="group relative bg-gradient-to-b from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/50 hover:border-amber-500/30 transition-all duration-500 h-full flex flex-col shadow-xl hover:shadow-2xl hover:shadow-amber-500/5"
             >
               <div className="relative h-64 w-full overflow-hidden bg-gray-800">
@@ -595,9 +595,12 @@ export default function ProductPage({ product, relatedProducts = [] }: ProductPa
             <ProductDetails product={product} />
             
             {/* Size Selector */}
-            {product.size && (
+            {(product.size || (product.variants && product.variants?.length > 0)) && (
               <SizeSelector
-                sizes={[product.size]}
+                sizes={product.variants && product.variants?.length > 0 
+                  ? Array.from(new Set(product.variants.map(v => v.size)))
+                  : [product.size]
+                }
                 selectedSize={selectedSize}
                 onSelect={setSelectedSize}
               />

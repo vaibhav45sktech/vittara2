@@ -28,9 +28,6 @@ export async function getAllProducts() {
         title: product.name,
         price: Math.round(product.price), // Convert to integer for consistency
         image: product.image,
-        images: product.images.length > 0 
-          ? product.images.map(img => img.url)
-          : [product.image],
         slug: product.name.toLowerCase().replace(/\s+/g, '-'),
         tag: 'READY TO WEAR', // Default tag
         colors: Array.from(new Set(product.variants.map(v => v.color))), // Get unique colors from variants
@@ -69,11 +66,6 @@ export async function getProductsByCategory(category: string) {
       include: {
         variants: true,
         reviews: true,
-        images: {
-          orderBy: {
-            order: 'asc',
-          }
-        },
       },
     });
 
@@ -84,9 +76,6 @@ export async function getProductsByCategory(category: string) {
         title: product.name,
         price: Math.round(product.price),
         image: product.image,
-        images: product.images.length > 0 
-          ? product.images.map(img => img.url)
-          : [product.image],
         slug: product.name.toLowerCase().replace(/\s+/g, '-'),
         tag: 'READY TO WEAR',
         colors: Array.from(new Set(product.variants.map(v => v.color))), // Get unique colors from variants
@@ -171,17 +160,9 @@ export async function getProductById(id: string | number) {
 
   // Fallback to static products data
   console.log(`Using static products data for product ID: ${id}`);
-  // Only try to parse as number if it's a numeric string, otherwise look for string match in static products
-  let staticProduct = null;
-  if (typeof id === 'string') {
-    // If it's a string ID, first try to match with originalId, then as numeric ID
-    staticProduct = products.find(p => p.originalId === id) || 
-                   (isNaN(Number(id)) ? null : products.find(p => p.id === Number(id)));
-  } else {
-    // If it's already a number, match with numeric ID
-    staticProduct = products.find(p => p.id === id);
-  }
-
+  const numericId = typeof id === 'string' ? parseInt(id) : id;
+  const staticProduct = products.find(p => p.id === numericId);
+  
   if (staticProduct) {
     return {
       ...staticProduct,

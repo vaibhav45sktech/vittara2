@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { FaStar, FaEye, FaHeart } from "react-icons/fa";
 import { HiSparkles } from "react-icons/hi2";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useCart } from "@/app/context/CartContext";
 import { ReviewProvider, useReview } from "@/app/context/ReviewContext";
 import { useWishlist } from "@/app/context/WishlistContext";
@@ -45,13 +46,13 @@ interface ProductListingProps {
 
 const FloatingElements = () => {
   const [mounted, setMounted] = useState(false);
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
-  
+
   if (!mounted) return null;
-  
+
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {[...Array(20)].map((_, i) => (
@@ -140,6 +141,18 @@ function ProductListingInner({ sections, pageTitle, subTitle }: ProductListingPr
     color: "",
   });
 
+  const searchParams = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const search = searchParams.get('search');
+    if (search) {
+      setSearchQuery(search);
+    } else {
+      setSearchQuery("");
+    }
+  }, [searchParams]);
+
   const filterProducts = (productsToFilter: any[]): any[] => {
     return productsToFilter.filter((product) => {
       if (filters.price) {
@@ -162,6 +175,12 @@ function ProductListingInner({ sections, pageTitle, subTitle }: ProductListingPr
         if (product.color && !product.color.toLowerCase().includes(filters.color.toLowerCase())) return false;
       }
 
+      if (searchQuery) {
+        if (!product.title?.toLowerCase().includes(searchQuery.toLowerCase())) {
+          return false;
+        }
+      }
+
       return true;
     });
   };
@@ -175,9 +194,9 @@ function ProductListingInner({ sections, pageTitle, subTitle }: ProductListingPr
         console.error('Error fetching products:', error);
       }
     };
-    
+
     fetchData();
-    
+
     const storedReviews = JSON.parse(localStorage.getItem('reviews') || '[]');
     setLocalReviews(storedReviews);
     setIsLoaded(true);
@@ -351,11 +370,11 @@ function ProductListingInner({ sections, pageTitle, subTitle }: ProductListingPr
 
                         {/* Product Image - Now links to product page */}
                         <Link
-                          href={`/products/${product.originalId}`}
+                          href={`/products/${product.originalId || product.id}`}
                           className="relative h-80 w-full overflow-hidden bg-gray-800 cursor-pointer block"
                         >
                           <Image
-                            src={product.image}
+                            src={product.images && product.images.length > 0 ? product.images[0] : product.image}
                             alt={product.title}
                             fill
                             className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -385,7 +404,7 @@ function ProductListingInner({ sections, pageTitle, subTitle }: ProductListingPr
                         {/* Product Info */}
                         <div className="p-5 flex-grow flex flex-col">
                           <h3 className="font-semibold text-white line-clamp-2 group-hover:text-amber-400 transition-colors duration-300 leading-snug mb-2 text-base">
-                            <Link href={`/products/${product.originalId}`} className="hover:text-amber-400 transition-colors duration-300">
+                            <Link href={`/products/${product.originalId || product.id}`} className="hover:text-amber-400 transition-colors duration-300">
                               {product.title}
                             </Link>
                           </h3>
@@ -426,7 +445,7 @@ function ProductListingInner({ sections, pageTitle, subTitle }: ProductListingPr
                                       : addToWishlist({
                                         id: product.id,
                                         title: product.title,
-                                        image: product.image,
+                                        image: product.images && product.images.length > 0 ? product.images[0] : product.image,
                                         price: product.price,
                                         color: "",
                                         size: 0
@@ -515,7 +534,9 @@ function ProductListingInner({ sections, pageTitle, subTitle }: ProductListingPr
 export default function ProductListing(props: ProductListingProps) {
   return (
     <ReviewProvider>
-      <ProductListingInner {...props} />
+      <Suspense fallback={<div className="min-h-screen bg-gray-950 flex items-center justify-center text-amber-400">Loading...</div>}>
+        <ProductListingInner {...props} />
+      </Suspense>
     </ReviewProvider>
   );
 }

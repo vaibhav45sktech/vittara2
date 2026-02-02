@@ -1,103 +1,113 @@
 import React from 'react';
 import Image from 'next/image';
 import Navbar from '@/app/components/Navbar';
+import { getAllCombos } from '@/app/actions/comboActions';
+import Link from 'next/link';
 
-const ComboPage = () => {
+export const dynamic = 'force-dynamic';
+
+export default async function ComboPage() {
+  const combos = await getAllCombos();
+
   return (
     <div className="min-h-screen bg-black antialiased">
       <Navbar />
       <main className="pt-20">
         <div className="relative w-full h-[70vh]">
           <Image
-            src="/s4.jpg"
+            src="/images/s4.jpg"
             alt="Combo Collection"
             fill
             className="object-cover"
             priority
+            quality={90}
           />
-        </div>
-        
-        <div className="container mx-auto px-4 py-12">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-wide">
-              Exclusive
-              <span className="block text-white italic font-serif">
-                Combo Collection
-              </span>
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+            <h1 className="text-4xl md:text-7xl font-bold text-white tracking-widest text-center shadow-lg">
+              <span className="block mb-2 font-serif italic">The Perfect</span>
+              MATCH
             </h1>
-            <p className="text-xl text-gray-400 mb-8 font-light">
-              Perfect combinations for the modern connoisseur
+          </div>
+        </div>
+
+        <div className="container mx-auto px-4 py-16">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-wide">
+              Exclusive
+              <span className="text-amber-500 font-serif italic ml-3">
+                Combos
+              </span>
+            </h2>
+            <p className="text-xl text-gray-400 font-light max-w-2xl mx-auto">
+              Curated combinations for the modern connoisseur. Experience the perfect harmony of style and comfort.
             </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Combo Item 1 */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#F3F4F6] hover:border-[#000000]/20 transition-all duration-300 hover:shadow-xl">
-              <div className="aspect-[3/4] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <Image
-                  src="/images/new-collection/Pant 11/pant1.jpg"
-                  alt="Pant and Shirt Combo"
-                  width={300}
-                  height={400}
-                  className="object-cover w-full h-full"
-                />
-              </div>
-              <h3 className="text-xl font-bold text-[#000000] mb-2">Classic Pair</h3>
-              <p className="text-[#4B5563] mb-3">Perfect combination of premium pants and shirts</p>
-              <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold text-[#4B5563]">₹15,999</span>
-                <button className="px-4 py-2 bg-[#000000] text-white rounded-lg hover:bg-[#4B5563] transition-colors">
-                  Add to Cart
-                </button>
-              </div>
+
+          {combos.length === 0 ? (
+            <div className="text-center text-gray-500 py-12">
+              <p className="text-2xl">No combos available at the moment.</p>
             </div>
-            
-            {/* Combo Item 2 */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#F3F4F6] hover:border-[#000000]/20 transition-all duration-300 hover:shadow-xl">
-              <div className="aspect-[3/4] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <Image
-                  src="/images/new-collection/Pant 22/p2.png"
-                  alt="Premium Combo"
-                  width={300}
-                  height={400}
-                  className="object-cover w-full h-full"
-                />
-              </div>
-              <h3 className="text-xl font-bold text-[#000000] mb-2">Premium Set</h3>
-              <p className="text-[#4B5563] mb-3">Luxury collection with complementary pieces</p>
-              <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold text-[#4B5563]">₹18,999</span>
-                <button className="px-4 py-2 bg-[#000000] text-white rounded-lg hover:bg-[#4B5563] transition-colors">
-                  Add to Cart
-                </button>
-              </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              {combos.map((combo) => (
+                <div
+                  key={combo.id}
+                  className="group bg-gray-900/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800 hover:border-amber-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-900/10 flex flex-col"
+                >
+                  <div className="relative aspect-[3/4] overflow-hidden">
+                    {combo.image ? (
+                      <Image
+                        src={combo.image}
+                        alt={combo.name}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-800 flex items-center justify-center text-gray-600">
+                        No Image
+                      </div>
+                    )}
+
+                    <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                      <p className="text-amber-200 text-sm font-medium mb-1 tracking-wider uppercase">Included</p>
+                      <ul className="text-white text-sm space-y-1">
+                        {combo.ComboItem.map(item => (
+                          <li key={item.id} className="flex justify-between">
+                            <span>{item.itemName}</span>
+                            {/* <span className="opacity-70">₹{item.itemPrice}</span> */}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="p-6 flex flex-col flex-grow">
+                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+                      {combo.name}
+                    </h3>
+                    <p className="text-gray-400 text-sm mb-4 line-clamp-2 flex-grow">
+                      {combo.description || "A perfect match."}
+                    </p>
+
+                    <div className="flex justify-between items-center mt-auto pt-4 border-t border-gray-800">
+                      <div>
+                        <span className="text-xs text-gray-500 block">Total Price</span>
+                        <span className="text-2xl font-bold text-white">₹{combo.price.toLocaleString('en-IN')}</span>
+                      </div>
+                      <Link
+                        href={`/combo/${combo.id}`}
+                        className="px-6 py-3 bg-amber-500 text-black font-bold rounded-lg hover:bg-amber-400 transition-all shadow-lg hover:shadow-amber-500/20 active:scale-95 text-center"
+                      >
+                        View Details
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-            
-            {/* Combo Item 3 */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#F3F4F6] hover:border-[#000000]/20 transition-all duration-300 hover:shadow-xl">
-              <div className="aspect-[3/4] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <Image
-                  src="/images/new-collection/Shirts/shirt1.jpg"
-                  alt="Style Combo"
-                  width={300}
-                  height={400}
-                  className="object-cover w-full h-full"
-                />
-              </div>
-              <h3 className="text-xl font-bold text-[#000000] mb-2">Style Essential</h3>
-              <p className="text-[#4B5563] mb-3">Essential pieces for everyday elegance</p>
-              <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold text-[#4B5563]">₹12,999</span>
-                <button className="px-4 py-2 bg-[#000000] text-white rounded-lg hover:bg-[#4B5563] transition-colors">
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </main>
     </div>
   );
 };
-
-export default ComboPage;

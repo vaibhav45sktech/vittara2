@@ -200,8 +200,8 @@ export default function StorePage() {
 
     // Validate address
     if (!address.name || !address.street || !address.city || !address.state || !address.zip || !address.phone) {
-       showModal("error", "Missing Details", "Please fill in all address fields.");
-       return;
+      showModal("error", "Missing Details", "Please fill in all address fields.");
+      return;
     }
 
     setShowAddressForm(false); // Close form
@@ -222,14 +222,14 @@ export default function StorePage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
-            amount: total, 
-            currency: "INR",
-            customerDetails: {
-                name: address.name,
-                address: address
-            },
-            items: cart
+        body: JSON.stringify({
+          amount: total,
+          currency: "INR",
+          customerDetails: {
+            name: address.name,
+            address: address
+          },
+          items: cart
         }),
       });
 
@@ -375,125 +375,125 @@ export default function StorePage() {
       {/* Address Form Modal */}
       {showAddressForm && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center">
-          <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm" 
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setShowAddressForm(false)}
           ></div>
           <div className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 overflow-hidden animate-scale-in flex flex-col max-h-[90vh]">
             <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-[#FFFFFF]">
               <h3 className="text-2xl font-bold text-[#000000] flex items-center gap-2">
-                 <Truck className="w-6 h-6 text-[#000000]" />
-                 Shipping Details
+                <Truck className="w-6 h-6 text-[#000000]" />
+                Shipping Details
               </h3>
-              <button 
-                onClick={() => setShowAddressForm(false)} 
+              <button
+                onClick={() => setShowAddressForm(false)}
                 className="p-2 rounded-full hover:bg-gray-200 transition text-gray-500"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
-            
+
             <div className="p-8 overflow-y-auto">
-                <form id="address-form" onSubmit={(e) => { e.preventDefault(); processPayment(); }}>
-                    <div className="space-y-6">
-                        <div>
-                            <label className="block text-sm font-semibold text-[#000000] mb-2">Full Name</label>
-                            <input 
-                                type="text" 
-                                required
-                                value={address.name}
-                                onChange={(e) => setAddress({...address, name: e.target.value})}
-                                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#000000] focus:ring-4 focus:ring-[#000000]/10 transition-all"
-                                placeholder="Enter your full name"
-                            />
-                        </div>
-                        
-                        <div>
-                            <label className="block text-sm font-semibold text-[#000000] mb-2">Address</label>
-                            <input 
-                                type="text" 
-                                required
-                                value={address.street}
-                                onChange={(e) => setAddress({...address, street: e.target.value})}
-                                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#000000] focus:ring-4 focus:ring-[#000000]/10 transition-all"
-                                placeholder="Street address, House No., Apartment"
-                            />
-                        </div>
+              <form id="address-form" onSubmit={(e) => { e.preventDefault(); processPayment(); }}>
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-[#000000] mb-2">Full Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={address.name}
+                      onChange={(e) => setAddress({ ...address, name: e.target.value })}
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#000000] focus:ring-4 focus:ring-[#000000]/10 transition-all"
+                      placeholder="Enter your full name"
+                    />
+                  </div>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-semibold text-[#000000] mb-2">ZIP Code</label>
-                                <input 
-                                    type="text" 
-                                    required
-                                    value={address.zip}
-                                    maxLength={6}
-                                    onChange={(e) => {
-                                      const val = e.target.value.replace(/\D/g, "");
-                                      setAddress({...address, zip: val});
-                                      if (val.length === 6) lookupPincode(val);
-                                    }}
-                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#000000] focus:ring-4 focus:ring-[#000000]/10 transition-all"
-                                    placeholder="ZIP Code"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-semibold text-[#000000] mb-2">City</label>
-                                <input 
-                                    type="text" 
-                                    required
-                                    value={address.city}
-                                    onChange={(e) => setAddress({...address, city: e.target.value})}
-                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#000000] focus:ring-4 focus:ring-[#000000]/10 transition-all"
-                                    placeholder="City"
-                                />
-                            </div>
-                        </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-[#000000] mb-2">Address</label>
+                    <input
+                      type="text"
+                      required
+                      value={address.street}
+                      onChange={(e) => setAddress({ ...address, street: e.target.value })}
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#000000] focus:ring-4 focus:ring-[#000000]/10 transition-all"
+                      placeholder="Street address, House No., Apartment"
+                    />
+                  </div>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-semibold text-[#000000] mb-2">State</label>
-                                <input 
-                                    type="text" 
-                                    required
-                                    value={address.state}
-                                    onChange={(e) => setAddress({...address, state: e.target.value})}
-                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#000000] focus:ring-4 focus:ring-[#000000]/10 transition-all"
-                                    placeholder="State"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-semibold text-[#000000] mb-2">Phone Number</label>
-                                <input 
-                                    type="tel" 
-                                    required
-                                    value={address.phone}
-                                    onChange={(e) => setAddress({...address, phone: e.target.value})}
-                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#000000] focus:ring-4 focus:ring-[#000000]/10 transition-all"
-                                    placeholder="Phone"
-                                />
-                            </div>
-                        </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-[#000000] mb-2">ZIP Code</label>
+                      <input
+                        type="text"
+                        required
+                        value={address.zip}
+                        maxLength={6}
+                        onChange={(e) => {
+                          const val = e.target.value.replace(/\D/g, "");
+                          setAddress({ ...address, zip: val });
+                          if (val.length === 6) lookupPincode(val);
+                        }}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#000000] focus:ring-4 focus:ring-[#000000]/10 transition-all"
+                        placeholder="ZIP Code"
+                      />
                     </div>
-                </form>
+                    <div>
+                      <label className="block text-sm font-semibold text-[#000000] mb-2">City</label>
+                      <input
+                        type="text"
+                        required
+                        value={address.city}
+                        onChange={(e) => setAddress({ ...address, city: e.target.value })}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#000000] focus:ring-4 focus:ring-[#000000]/10 transition-all"
+                        placeholder="City"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-[#000000] mb-2">State</label>
+                      <input
+                        type="text"
+                        required
+                        value={address.state}
+                        onChange={(e) => setAddress({ ...address, state: e.target.value })}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#000000] focus:ring-4 focus:ring-[#000000]/10 transition-all"
+                        placeholder="State"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-[#000000] mb-2">Phone Number</label>
+                      <input
+                        type="tel"
+                        required
+                        value={address.phone}
+                        onChange={(e) => setAddress({ ...address, phone: e.target.value })}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#000000] focus:ring-4 focus:ring-[#000000]/10 transition-all"
+                        placeholder="Phone"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
 
             <div className="p-6 border-t border-gray-100 bg-gray-50 flex gap-4 justify-end">
-                <button 
-                    type="button"
-                    onClick={() => setShowAddressForm(false)}
-                    className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-100 transition cursor-pointer"
-                >
-                    Cancel
-                </button>
-                <button 
-                    form="address-form"
-                    type="submit" 
-                    className="px-8 py-3 bg-[#000000] text-white rounded-lg font-semibold hover:bg-[#333333] transition shadow-lg hover:shadow-xl active:scale-95 flex items-center gap-2 cursor-pointer"
-                >
-                    Confirm & Pay
-                    <ArrowRight className="w-5 h-5" />
-                </button>
+              <button
+                type="button"
+                onClick={() => setShowAddressForm(false)}
+                className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-100 transition cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                form="address-form"
+                type="submit"
+                className="px-8 py-3 bg-[#000000] text-white rounded-lg font-semibold hover:bg-[#333333] transition shadow-lg hover:shadow-xl active:scale-95 flex items-center gap-2 cursor-pointer"
+              >
+                Confirm & Pay
+                <ArrowRight className="w-5 h-5" />
+              </button>
             </div>
           </div>
         </div>
@@ -562,17 +562,21 @@ export default function StorePage() {
                     <div className="flex gap-4 lg:gap-6">
                       {/* Product Image */}
                       <div className="relative w-24 h-24 lg:w-32 lg:h-32 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          sizes="(max-width: 768px) 96px, 128px"
-                          className="object-cover"
-                          priority={cart.indexOf(item) < 3}
-                          quality={85}
-                          placeholder="blur"
-                          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
-                        />
+                        {item.image ? (
+                          <Image
+                            src={item.image}
+                            alt={item.title || "Product Image"}
+                            fill
+                            sizes="(max-width: 768px) 96px, 128px"
+                            className="object-cover"
+                            priority={cart.indexOf(item) < 3}
+                            quality={85}
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                            <span className="text-xs text-gray-500">No Image</span>
+                          </div>
+                        )}
                       </div>
 
                       {/* Product Details */}
@@ -628,8 +632,8 @@ export default function StorePage() {
                                       Wait, we added 'category' to CartItem type in Plan? Yes. 
                                       Let's check if item.category is available.
                                   */}
-                                  {(item.category === 'shirt' 
-                                    ? ["Tailored fit", "Classic Regular fit", "Slim fit"] 
+                                  {(item.category === 'shirt'
+                                    ? ["Tailored fit", "Classic Regular fit", "Slim fit"]
                                     : ["Tailored fit", "Tapered fit", "Straight fit", "Relaxed Tapered fit", "Regular fit"]
                                   ).map(f => (
                                     <option key={f} value={f}>{f}</option>
