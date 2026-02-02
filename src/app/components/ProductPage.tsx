@@ -48,12 +48,12 @@ const FloatingElements = () => {
   );
 };
 
-const ImageGallery = ({ 
-  images, 
+const ImageGallery = ({
+  images,
   mainImage,
-  onImageClick 
-}: { 
-  images: string[]; 
+  onImageClick
+}: {
+  images: string[];
   mainImage: string;
   onImageClick: (image: string) => void;
 }) => {
@@ -66,7 +66,7 @@ const ImageGallery = ({
   return (
     <div className="space-y-4">
       {/* Main Image */}
-      <div 
+      <div
         className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden bg-gray-800 cursor-pointer group"
         onClick={() => onImageClick(selectedImage)}
       >
@@ -91,11 +91,10 @@ const ImageGallery = ({
           {images.slice(0, 4).map((image, index) => (
             <div
               key={index}
-              className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer border-2 transition-all duration-300 ${
-                selectedImage === image 
-                  ? 'border-amber-500 shadow-lg shadow-amber-500/30' 
-                  : 'border-gray-700 hover:border-amber-500/50'
-              }`}
+              className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer border-2 transition-all duration-300 ${selectedImage === image
+                ? 'border-amber-500 shadow-lg shadow-amber-500/30'
+                : 'border-gray-700 hover:border-amber-500/50'
+                }`}
               onClick={() => setSelectedImage(image)}
             >
               <Image
@@ -112,9 +111,9 @@ const ImageGallery = ({
   );
 };
 
-const SizeSelector = ({ sizes, selectedSize, onSelect }: { 
-  sizes: string[]; 
-  selectedSize: string; 
+const SizeSelector = ({ sizes, selectedSize, onSelect }: {
+  sizes: string[];
+  selectedSize: string;
   onSelect: (size: string) => void;
 }) => {
   return (
@@ -128,11 +127,10 @@ const SizeSelector = ({ sizes, selectedSize, onSelect }: {
           <button
             key={size}
             onClick={() => onSelect(size)}
-            className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 border-2 ${
-              selectedSize === size
-                ? 'bg-amber-500 text-gray-900 border-amber-500 shadow-lg shadow-amber-500/30'
-                : 'bg-gray-800 text-gray-300 border-gray-600 hover:border-amber-500/50 hover:text-amber-400'
-            }`}
+            className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 border-2 ${selectedSize === size
+              ? 'bg-amber-500 text-gray-900 border-amber-500 shadow-lg shadow-amber-500/30'
+              : 'bg-gray-800 text-gray-300 border-gray-600 hover:border-amber-500/50 hover:text-amber-400'
+              }`}
           >
             {size}
           </button>
@@ -142,9 +140,9 @@ const SizeSelector = ({ sizes, selectedSize, onSelect }: {
   );
 };
 
-const ColorSwatches = ({ colors, selectedColor, onSelect }: { 
-  colors: string[]; 
-  selectedColor: string; 
+const ColorSwatches = ({ colors, selectedColor, onSelect }: {
+  colors: string[];
+  selectedColor: string;
   onSelect: (color: string) => void;
 }) => {
   return (
@@ -155,11 +153,10 @@ const ColorSwatches = ({ colors, selectedColor, onSelect }: {
           <button
             key={index}
             onClick={() => onSelect(color)}
-            className={`w-10 h-10 rounded-full border-2 transition-all duration-300 relative ${
-              selectedColor === color
-                ? 'border-amber-400 shadow-lg shadow-amber-500/50 scale-110'
-                : 'border-gray-600 hover:border-amber-500/50'
-            }`}
+            className={`w-10 h-10 rounded-full border-2 transition-all duration-300 relative ${selectedColor === color
+              ? 'border-amber-400 shadow-lg shadow-amber-500/50 scale-110'
+              : 'border-gray-600 hover:border-amber-500/50'
+              }`}
             style={{ backgroundColor: color }}
             aria-label={`Color ${color}`}
           >
@@ -225,9 +222,9 @@ const ProductDetails = ({ product }: { product: Product }) => {
           Product Details
         </h3>
         <p className="text-gray-300 leading-relaxed">
-          Experience unparalleled craftsmanship with this exquisite piece. 
-          Designed for the discerning individual who appreciates quality and style. 
-          Perfect for both casual and formal occasions, this garment combines 
+          Experience unparalleled craftsmanship with this exquisite piece.
+          Designed for the discerning individual who appreciates quality and style.
+          Perfect for both casual and formal occasions, this garment combines
           comfort with sophistication.
         </p>
       </div>
@@ -235,15 +232,15 @@ const ProductDetails = ({ product }: { product: Product }) => {
   );
 };
 
-const ActionButtons = ({ 
-  product, 
-  selectedSize, 
+const ActionButtons = ({
+  product,
+  selectedSize,
   selectedColor,
   inWishlist,
   onAddToCart,
   onAddToWishlist,
   onBuyNow
-}: { 
+}: {
   product: Product;
   selectedSize: string;
   selectedColor: string;
@@ -262,26 +259,25 @@ const ActionButtons = ({
           <FaShoppingCart />
           Add to Cart
         </button>
-        
+
         <button
           onClick={onBuyNow}
           className="w-full py-4 bg-white text-gray-900 font-bold rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg transform hover:-translate-y-1 border border-gray-200 text-lg"
         >
           Buy Now
         </button>
-        
+
         <button
           onClick={onAddToWishlist}
-          className={`w-full py-4 font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-3 text-lg transform hover:-translate-y-1 ${
-            inWishlist
-              ? "bg-red-500/20 text-red-400 border border-red-500/30"
-              : "bg-gray-800 text-gray-300 border border-gray-600 hover:border-amber-500/50 hover:text-amber-400"
-          }`}
+          className={`w-full py-4 font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-3 text-lg transform hover:-translate-y-1 ${inWishlist
+            ? "bg-red-500/20 text-red-400 border border-red-500/30"
+            : "bg-gray-800 text-gray-300 border border-gray-600 hover:border-amber-500/50 hover:text-amber-400"
+            }`}
         >
           <FaHeart className={inWishlist ? "text-red-400" : ""} />
           {inWishlist ? "In Wishlist" : "Add to Wishlist"}
         </button>
-        
+
         <button
           onClick={() => {
             window.open("https://docs.google.com/forms/d/e/1FAIpQLSdXkEPO-4NSrIbXnjF_p2iKBHBYua4EIzYAW-EK3xb1x8lOUg/viewform", "_blank");
@@ -292,7 +288,7 @@ const ActionButtons = ({
           Need Customization
         </button>
       </SignedIn>
-      
+
       <SignedOut>
         <Link
           href="/sign-in"
@@ -318,7 +314,7 @@ const RelatedProducts = ({ products }: { products: Product[] }) => {
           {products.slice(0, 4).map((product) => (
             <Link
               key={product.id}
-              href={`/products/${product.originalId || product.id}`}
+              href={`/products/${(product as any).originalId || product.id}`}
               className="group relative bg-gradient-to-b from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/50 hover:border-amber-500/30 transition-all duration-500 h-full flex flex-col shadow-xl hover:shadow-2xl hover:shadow-amber-500/5"
             >
               <div className="relative h-64 w-full overflow-hidden bg-gray-800">
@@ -352,7 +348,7 @@ const CustomerReviews = ({ productId }: { productId: number }) => {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  
+
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -364,14 +360,14 @@ const CustomerReviews = ({ productId }: { productId: number }) => {
         setLoading(false);
       }
     };
-    
+
     fetchReviews();
   }, [productId]);
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!comment.trim()) return;
-    
+
     setSubmitting(true);
     try {
       const newReview = await addProductReview(productId.toString(), rating, comment);
@@ -386,7 +382,7 @@ const CustomerReviews = ({ productId }: { productId: number }) => {
       setSubmitting(false);
     }
   };
-  
+
   const renderStars = (rate: number) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -400,7 +396,7 @@ const CustomerReviews = ({ productId }: { productId: number }) => {
     }
     return stars;
   };
-  
+
   if (loading) {
     return (
       <section className="relative z-10 px-4 py-16 bg-gray-900/30">
@@ -414,12 +410,12 @@ const CustomerReviews = ({ productId }: { productId: number }) => {
       </section>
     );
   }
-  
+
   return (
     <section className="relative z-10 px-4 py-16 bg-gray-900/30">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">Customer Reviews</h2>
-        
+
         {/* Add Review Form */}
         <div className="mb-12 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50">
           <h3 className="text-xl font-semibold text-white mb-4">Write a Review</h3>
@@ -469,11 +465,11 @@ const CustomerReviews = ({ productId }: { productId: number }) => {
             )}
           </form>
         </div>
-        
+
         {/* Reviews List */}
         <div className="space-y-6">
           <h3 className="text-xl font-semibold text-white mb-4">Reviews ({reviews.length})</h3>
-          
+
           {reviews.length === 0 ? (
             <div className="text-center py-8 text-gray-400">
               No reviews yet. Be the first to review this product!
@@ -504,15 +500,15 @@ const CustomerReviews = ({ productId }: { productId: number }) => {
 export default function ProductPage({ product, relatedProducts = [] }: ProductPageProps) {
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
-  
+
   const [selectedSize, setSelectedSize] = useState(product.size || "M");
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || "#000000");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [mainImage, setMainImage] = useState(product.image);
-  
+
   // Use images array if available, otherwise fallback to single image
-  const productImages = (product as any).images && (product as any).images.length > 0 
-    ? (product as any).images 
+  const productImages = (product as any).images && (product as any).images.length > 0
+    ? (product as any).images
     : [product.image];
 
   const handleAddToCart = () => {
@@ -593,12 +589,12 @@ export default function ProductPage({ product, relatedProducts = [] }: ProductPa
           {/* Right Column - Product Details */}
           <div className="space-y-8">
             <ProductDetails product={product} />
-            
+
             {/* Size Selector */}
-            {(product.size || (product.variants && product.variants?.length > 0)) && (
+            {(product.size || ((product as any).variants && (product as any).variants?.length > 0)) && (
               <SizeSelector
-                sizes={product.variants && product.variants?.length > 0 
-                  ? Array.from(new Set(product.variants.map(v => v.size)))
+                sizes={(product as any).variants && (product as any).variants?.length > 0
+                  ? Array.from(new Set((product as any).variants.map((v: any) => v.size)))
                   : [product.size]
                 }
                 selectedSize={selectedSize}

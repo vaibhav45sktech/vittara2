@@ -28,7 +28,7 @@ export async function getAllProducts() {
         title: product.name,
         price: Math.round(product.price), // Convert to integer for consistency
         image: product.image,
-        images: product.images.length > 0 
+        images: product.images.length > 0
           ? product.images.map(img => img.url)
           : [product.image],
         slug: product.name.toLowerCase().replace(/\s+/g, '-'),
@@ -62,7 +62,7 @@ export async function getProductsByCategory(category: string) {
 
     const dbProducts = await prisma.product.findMany({
       where: {
-        category: Array.isArray(categoryFilter) 
+        category: Array.isArray(categoryFilter)
           ? { in: categoryFilter }
           : categoryFilter,
       },
@@ -84,7 +84,7 @@ export async function getProductsByCategory(category: string) {
         title: product.name,
         price: Math.round(product.price),
         image: product.image,
-        images: product.images.length > 0 
+        images: product.images.length > 0
           ? product.images.map(img => img.url)
           : [product.image],
         slug: product.name.toLowerCase().replace(/\s+/g, '-'),
@@ -115,7 +115,7 @@ export async function getProductsByCategory(category: string) {
 export async function getProductById(id: string | number) {
   try {
     const productId = typeof id === 'string' ? id : id.toString();
-    
+
     const product = await prisma.product.findUnique({
       where: {
         id: productId,
@@ -141,9 +141,9 @@ export async function getProductById(id: string | number) {
       // Get unique sizes and colors from variants
       const sizes = Array.from(new Set(product.variants.map(v => v.size)));
       const colors = Array.from(new Set(product.variants.map(v => v.color)));
-      
+
       // Get all images or fallback to main image
-      const productImages = product.images.length > 0 
+      const productImages = product.images.length > 0
         ? product.images.map(img => img.url)
         : [product.image];
 
@@ -175,8 +175,8 @@ export async function getProductById(id: string | number) {
   let staticProduct = null;
   if (typeof id === 'string') {
     // If it's a string ID, first try to match with originalId, then as numeric ID
-    staticProduct = products.find(p => p.originalId === id) || 
-                   (isNaN(Number(id)) ? null : products.find(p => p.id === Number(id)));
+    staticProduct = products.find(p => (p as any).originalId === id) ||
+      (isNaN(Number(id)) ? null : products.find(p => p.id === Number(id)));
   } else {
     // If it's already a number, match with numeric ID
     staticProduct = products.find(p => p.id === id);
@@ -205,7 +205,7 @@ export async function getProductById(id: string | number) {
 export async function getProductReviews(productId: string | number) {
   try {
     const stringProductId = typeof productId === 'number' ? productId.toString() : productId;
-    
+
     const reviews = await prisma.review.findMany({
       where: {
         productId: stringProductId,
@@ -226,7 +226,7 @@ export async function getProductReviews(productId: string | number) {
 export async function addProductReview(productId: string | number, rating: number, comment: string) {
   try {
     const stringProductId = typeof productId === 'number' ? productId.toString() : productId;
-    
+
     const review = await prisma.review.create({
       data: {
         rating,
@@ -246,7 +246,7 @@ export async function addProductReview(productId: string | number, rating: numbe
 export async function getProductVariants(productId: string | number) {
   try {
     const stringProductId = typeof productId === 'number' ? productId.toString() : productId;
-    
+
     const variants = await prisma.variant.findMany({
       where: {
         productId: stringProductId,
