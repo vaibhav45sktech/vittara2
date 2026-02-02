@@ -18,6 +18,7 @@ model Product {
   description String
   price       Float
   image       String
+  category    String   @default("shirt")
   images      ProductImage[]
   variants    Variant[]
   reviews     Review[]

@@ -8,7 +8,6 @@ async function seedDatabase() {
     connectionString: process.env.DATABASE_URL,
   });
 
-  
   const adapter = new PrismaPg(pool);
 
 
