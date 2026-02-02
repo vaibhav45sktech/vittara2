@@ -15,7 +15,7 @@ export default async function ComboPage() {
       <main className="pt-20">
         <div className="relative w-full h-[70vh]">
           <Image
-            src="/images/s4.jpg"
+            src="/s4.jpg"
             alt="Combo Collection"
             fill
             className="object-cover"
