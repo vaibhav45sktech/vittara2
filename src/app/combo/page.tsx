@@ -13,7 +13,7 @@ export default async function ComboPage() {
     <div className="min-h-screen bg-black antialiased">
       <Navbar />
       <main className="pt-20">
-        <div className="relative w-full h-[70vh]">
+        <div className="relative w-full h-[50vh] md:h-[70vh]">
           <Image
             src="/s4.jpg"
             alt="Combo Collection"
@@ -22,9 +22,9 @@ export default async function ComboPage() {
             priority
             quality={90}
           />
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-            <h1 className="text-4xl md:text-7xl font-bold text-white tracking-widest text-center shadow-lg">
-              <span className="block mb-2 font-serif italic">The Perfect</span>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex items-end justify-center pb-12 md:pb-20">
+            <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold text-white tracking-widest text-center drop-shadow-2xl">
+              <span className="block mb-2 font-serif italic text-amber-400">The Perfect</span>
               MATCH
             </h1>
           </div>
