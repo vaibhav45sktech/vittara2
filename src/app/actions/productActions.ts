@@ -105,6 +105,11 @@ export async function getProductById(id: string | number) {
             stock: true,
           }
         },
+        images: {
+          orderBy: {
+            order: 'asc',
+          }
+        },
         reviews: true,
       },
     });
@@ -113,6 +118,11 @@ export async function getProductById(id: string | number) {
       // Get unique sizes and colors from variants
       const sizes = Array.from(new Set(product.variants.map(v => v.size)));
       const colors = Array.from(new Set(product.variants.map(v => v.color)));
+      
+      // Get all images or fallback to main image
+      const productImages = product.images.length > 0 
+        ? product.images.map(img => img.url)
+        : [product.image];
 
       return {
         id: parseInt(product.id) || 0, // Keep as number for frontend compatibility
@@ -120,6 +130,7 @@ export async function getProductById(id: string | number) {
         description: product.description,
         price: Math.round(product.price),
         image: product.image,
+        images: productImages,
         slug: product.name.toLowerCase().replace(/\s+/g, '-'),
         tag: 'READY TO WEAR',
         colors: colors,
@@ -132,7 +143,7 @@ export async function getProductById(id: string | number) {
       };
     }
   } catch (error) {
-    console.error('Error fetching product by ID from database:', error);
+    console.error('Error fetching product by ID from database:', error instanceof Error ? error.message : String(error));
   }
 
   // Fallback to static products data
@@ -143,6 +154,7 @@ export async function getProductById(id: string | number) {
   if (staticProduct) {
     return {
       ...staticProduct,
+      images: [staticProduct.image], // Wrap single image in array
       description: `Premium ${staticProduct.fabric} ${staticProduct.category} in ${staticProduct.color} color. Perfect for any occasion.`,
       variants: [
         {

@@ -510,7 +510,10 @@ export default function ProductPage({ product, relatedProducts = [] }: ProductPa
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [mainImage, setMainImage] = useState(product.image);
   
-  const productImages = [product.image];
+  // Use images array if available, otherwise fallback to single image
+  const productImages = (product as any).images && (product as any).images.length > 0 
+    ? (product as any).images 
+    : [product.image];
 
   const handleAddToCart = () => {
     addToCart({
