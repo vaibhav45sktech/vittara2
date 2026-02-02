@@ -259,3 +259,16 @@ export async function getProductVariants(productId: string | number) {
     return [];
   }
 }
+export async function getSizeCharts(category: string) {
+  try {
+    const dbCategory = category === 'shirt' ? 'shirt' : 'pant';
+    const charts = await prisma.sizeChart.findMany({
+      where: { category: dbCategory },
+      orderBy: { fit: 'asc' }
+    });
+    return charts;
+  } catch (error) {
+    console.error('Error fetching size charts:', error);
+    return [];
+  }
+}

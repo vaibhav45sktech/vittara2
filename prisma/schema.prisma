@@ -70,3 +70,12 @@ model ComboItem {
   Combo     Combo?    @relation(fields: [comboId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   Product   Product?  @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
+
+model SizeChart {
+  id        String   @id @default(cuid())
+  category  String
+  fit       String
+  data      Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

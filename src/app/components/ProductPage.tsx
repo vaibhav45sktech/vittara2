@@ -12,7 +12,71 @@ import Navbar from "./Navbar";
 // Import the product type from data
 import type { Product as DataProduct } from "@/app/data/products";
 import type { Product as CartProduct } from "@/types";
-import { addProductReview, getProductReviews } from "@/app/actions/productActions";
+import { addProductReview, getProductReviews, getSizeCharts } from "@/app/actions/productActions";
+
+// ... (existing imports)
+
+const SizeGuideSection = ({ charts }: { charts: any[] }) => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  if (!charts || charts.length === 0) return null;
+
+  const activeChart = charts[activeTab];
+  const columns = activeChart.data && activeChart.data.length > 0 ? Object.keys(activeChart.data[0]) : [];
+
+  return (
+    <div className="mt-4 bg-gray-900 border border-gray-700 rounded-lg overflow-hidden">
+      <div className="p-4 bg-gray-800 border-b border-gray-700 flex justify-between items-center">
+        <h3 className="font-semibold text-white flex items-center gap-2">
+          <FaRulerCombined className="text-amber-400" />
+          Size Guide
+        </h3>
+
+        {charts.length > 1 && (
+          <div className="flex gap-2">
+            {charts.map((chart, index) => (
+              <button
+                key={chart.id}
+                onClick={() => setActiveTab(index)}
+                className={`px-3 py-1 text-xs rounded-full transition-colors ${activeTab === index
+                  ? "bg-amber-500 text-black font-bold"
+                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                  }`}
+              >
+                {chart.fit}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm text-left text-gray-400">
+          <thead className="text-xs text-gray-300 uppercase bg-gray-800">
+            <tr>
+              {columns.map((col) => (
+                <th key={col} className="px-4 py-3 whitespace-nowrap">
+                  {col}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {activeChart.data.map((row: any, i: number) => (
+              <tr key={i} className="border-b border-gray-800 hover:bg-gray-800/50">
+                {columns.map((col) => (
+                  <td key={col} className={`px-4 py-3 font-medium whitespace-nowrap ${col === 'Size' ? 'text-white' : ''}`}>
+                    {row[col]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
 
 // Use the data product type
 type Product = DataProduct;
@@ -23,6 +87,14 @@ interface ProductPageProps {
 }
 
 const FloatingElements = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {[...Array(15)].map((_, i) => (
@@ -235,12 +307,24 @@ const ProductDetails = ({ product }: { product: Product }) => {
           <HiSparkles className="text-amber-400" />
           Product Details
         </h3>
-        <p className="text-gray-300 leading-relaxed">
-          Experience unparalleled craftsmanship with this exquisite piece.
+        <p className="text-gray-300 leading-relaxed mb-4">
+          {(product as any).description || `Experience unparalleled craftsmanship with this exquisite piece.
           Designed for the discerning individual who appreciates quality and style.
           Perfect for both casual and formal occasions, this garment combines
-          comfort with sophistication.
+          comfort with sophistication.`}
         </p>
+
+        {/* Key Features */}
+        {(product as any).keyFeatures && (product as any).keyFeatures.length > 0 && (
+          <div className="mt-4 border-t border-gray-700/50 pt-4">
+            <h4 className="font-semibold text-white mb-2 text-sm uppercase tracking-wider">Key Features</h4>
+            <ul className="list-disc list-inside space-y-1 text-gray-300 text-sm">
+              {(product as any).keyFeatures.map((feature: string, index: number) => (
+                <li key={index}>{feature}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -519,6 +603,11 @@ export default function ProductPage({ product, relatedProducts = [] }: ProductPa
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || "#000000");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [mainImage, setMainImage] = useState(product.image);
+  const [sizeCharts, setSizeCharts] = useState<any[]>([]);
+
+  useEffect(() => {
+    getSizeCharts(product.category).then(setSizeCharts);
+  }, [product.category]);
 
   // Use images array if available, otherwise fallback to single image
   const productImages = (product as any).images && (product as any).images.length > 0
@@ -613,12 +702,12 @@ export default function ProductPage({ product, relatedProducts = [] }: ProductPa
                 }
                 selectedSize={selectedSize}
                 onSelect={setSelectedSize}
-                sizeGuideLink={product.category === 'shirt'
-                  ? '/Shirt_Fit_Size_System_Printable_260127_155104.pdf'
-                  : '/Trouser_Size_Charts_and_Ease_Table_260127_155049.pdf'
-                }
+                sizeGuideLink={undefined} // Disable old PDF link in favor of table
               />
             )}
+
+            {/* Size Guide Section */}
+            <SizeGuideSection charts={sizeCharts} />
 
             {/* Color Swatches */}
             {product.colors && product.colors.length > 0 && (

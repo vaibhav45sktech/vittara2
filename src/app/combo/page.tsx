@@ -12,7 +12,7 @@ export default async function ComboPage() {
   return (
     <div className="min-h-screen bg-black antialiased">
       <Navbar />
-      <main className="pt-20">
+      <main>
         {/* Mobile Banner - Natural Aspect Ratio */}
         <div className="relative w-full md:hidden">
           <img

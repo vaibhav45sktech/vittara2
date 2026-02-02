@@ -10,6 +10,8 @@ export type Product = {
   fabric: string;   // e.g. silk, cotton, net
   color: string;    // e.g. red, blue, beige
   category: "modern" | "classic" | "shirt"; // modern = Pant 11, classic = Pant 22, shirt = new collection
+  description?: string;
+  keyFeatures?: string[];
 };
 
 const products: Product[] = [
@@ -17,7 +19,7 @@ const products: Product[] = [
   {
     id: 1,
     title: "Pearled Ivory White pantenga",
-    price: 12999, 
+    price: 12999,
     image: "/images/new-collection/Pant 11/pant1.jpg",
     slug: "pearled-ivory-pantenga",
     tag: "SEMI-STITCHED",
@@ -42,16 +44,23 @@ const products: Product[] = [
   },
   {
     id: 3,
-    title: "Wine Hued Elegance pantenga",
+    title: "FITTARA Dark Brown Single-Buckle Pleated Gurkha Trousers",
     price: 7999,
     image: "/images/new-collection/Pant 11/pant3.jpg",
-    slug: "wine-hued-pantenga",
+    slug: "dark-brown-gurkha-trousers",
     tag: "READY TO WEAR",
     colors: ["#4B1F3A", "#000000"],
     size: "XL",
     fabric: "net",
     color: "wine",
     category: "modern",
+    description: "The FITTARA Dark Brown Single-Buckle Pleated Gurkha Trousers are designed for modern elegance with a strong tailored presence. Featuring a high-rise Gurkha waistband secured with a single side buckle, this style is complemented by front pleats that enhance structure, comfort, and natural drape.",
+    keyFeatures: [
+      "High-rise Gurkha waistband",
+      "Single side-buckle closure",
+      "Front pleats for structure & ease",
+      "Tailored, elongated silhouette"
+    ]
   },
   {
     id: 4,

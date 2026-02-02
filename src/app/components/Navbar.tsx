@@ -249,7 +249,7 @@ const Navbar = () => {
   return (
     <>
       {/* Spacer to prevent content overlap - equivalent to pt-40 */}
-      <div className="h-50"></div>
+      <div className="h-[130px] lg:h-[220px]"></div>
 
       <header className="fixed top-0 left-0 w-full z-[999]">
         {/* Announcement Bar */}
