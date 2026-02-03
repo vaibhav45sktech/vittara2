@@ -15,7 +15,7 @@ const categoryCards = [
     tagline: "DESIGNED FOR COMFORT",
     image: "/images/new-collection/Pant 11/pant1.jpg",
     link: "/pant",
-    startingPrice: "₹7,999",
+    startingPrice: "₹799",
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ const categoryCards = [
     tagline: "HANDCRAFTED ELEGANCE",
     image: "/images/new-collection/Pant 22/p1.png",
     link: "/pant",
-    startingPrice: "₹10,999",
+    startingPrice: "₹799",
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ const categoryCards = [
     tagline: "LUXURIOUS FABRICS",
     image: "/images/new-collection/Shirts/shirt2.jpg",
     link: "/shirt",
-    startingPrice: "₹4,499",
+    startingPrice: "₹799",
   },
 ];
 
@@ -117,7 +117,7 @@ const HeroSection = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
 
               {/* Content */}
-              <div className="absolute inset-0 flex flex-col justify-between p-6 lg:p-8">
+              <div className="absolute inset-0 flex flex-col justify-between p-6 lg:p-8 pb-20 lg:pb-24">
                 {/* Top Tags */}
                 <div className="flex items-center gap-3">
                   <span className="text-xs text-white/80 tracking-widest font-light">
@@ -212,7 +212,7 @@ const HeroSection = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
                       {/* Content */}
-                      <div className="absolute inset-0 flex flex-col justify-end p-6">
+                      <div className="absolute inset-0 flex flex-col justify-end p-6 pb-24">
                         {/* Title */}
                         <div className="mb-4">
                           <h2 className="text-4xl font-bold text-white tracking-tight leading-none">
