@@ -1,6 +1,7 @@
 import { type Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
@@ -40,6 +41,7 @@ export default function RootLayout({
             </WishlistProvider>
           </CartProvider>
           <ToastProvider />
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
