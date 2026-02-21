@@ -631,8 +631,8 @@ export default function ProductPage({ product, relatedProducts = [] }: ProductPa
       "Wrinkle free Korean fabric": 899
     },
     pant: {
-      "Regular stretch fabric": 999,
-      "Korean premium twill": 1299
+      "Regular stretch fabric": 799,
+      "Korean premium twill": 799
     }
   };
 

@@ -12,7 +12,6 @@ import { useWishlist } from "@/app/context/WishlistContext";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Navbar from "./Navbar";
 import ProductFilter from "./ProductFilter";
-import { getAllProducts } from "@/app/actions/productActions";
 // Interfaces
 interface Review {
   productId: number;
@@ -42,6 +41,7 @@ interface ProductListingProps {
   sections: Section[];
   pageTitle?: string;
   subTitle?: string;
+  initialProducts?: any[];
 }
 
 const FloatingElements = () => {
@@ -120,7 +120,7 @@ const ImageModal = ({
   );
 };
 
-function ProductListingInner({ sections, pageTitle, subTitle }: ProductListingProps) {
+function ProductListingInner({ sections, pageTitle, subTitle, initialProducts }: ProductListingProps) {
   const { addToCart } = useCart();
   const { addReview } = useReview();
   const { addToWishlist, removeFromWishlist, isInWishlist, isLoaded: wishlistLoaded, wishlistCount } = useWishlist();
@@ -132,7 +132,7 @@ function ProductListingInner({ sections, pageTitle, subTitle }: ProductListingPr
   const [localReviews, setLocalReviews] = useState<Review[]>([]);
   const [showThankYou, setShowThankYou] = useState<Record<number, boolean>>({});
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<any[]>(initialProducts || []);
 
   const [filters, setFilters] = useState<Filters>({
     size: "",
@@ -186,17 +186,6 @@ function ProductListingInner({ sections, pageTitle, subTitle }: ProductListingPr
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchedProducts = await getAllProducts();
-        setProducts(fetchedProducts);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
-    fetchData();
-
     const storedReviews = JSON.parse(localStorage.getItem('reviews') || '[]');
     setLocalReviews(storedReviews);
     setIsLoaded(true);

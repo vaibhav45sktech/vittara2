@@ -8,6 +8,7 @@ const nextConfig = {
     NEXT_PUBLIC_CLERK_SIGN_UP_URL: "/sign-up",
   },
   images: {
+    minimumCacheTTL: 60,
     remotePatterns: [
       {
         protocol: "https",

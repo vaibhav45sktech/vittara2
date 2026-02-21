@@ -619,8 +619,8 @@ export default function StorePage() {
                                     if (item.category === 'shirt') {
                                       if (newFabric === "Wrinkle free Korean fabric") newPrice = 899;
                                     } else { // Pant
-                                      if (newFabric === "Regular stretch fabric") newPrice = 999;
-                                      else if (newFabric === "Korean premium twill") newPrice = 1299;
+                                      if (newFabric === "Regular stretch fabric") newPrice = 799;
+                                      else if (newFabric === "Korean premium twill") newPrice = 799;
                                     }
 
                                     // We need to update price too. updateCartItem doesn't officially support price update in its signature in CartContext (based on my read).
@@ -651,7 +651,7 @@ export default function StorePage() {
                                   For now, we just allow selecting correct fabrics.
                                   Ideally, we should recalculate price:
                                   Shirt: 899
-                                  Pant: Regular=999, Korean=1299
+                                  Pant: Regular=799, Korean=799
                               */}
 
                               {/* Fit Selector - Replaces Color Selector */}

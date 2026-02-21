@@ -16,20 +16,19 @@ interface ProductListingServerProps {
   subTitle?: string;
 }
 
-export default async function ProductListingServer({ 
-  sections, 
-  pageTitle, 
-  subTitle 
+export default async function ProductListingServer({
+  sections,
+  pageTitle,
+  subTitle
 }: ProductListingServerProps) {
   const products = await getAllProducts();
 
-  // Pass the sections and page info to the client component
-  // The client component will filter the products based on the sections
   return (
-    <ProductListing 
-      sections={sections} 
-      pageTitle={pageTitle} 
+    <ProductListing
+      sections={sections}
+      pageTitle={pageTitle}
       subTitle={subTitle}
+      initialProducts={products}
     />
   );
 }

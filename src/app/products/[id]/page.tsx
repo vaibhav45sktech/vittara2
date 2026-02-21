@@ -1,3 +1,4 @@
+import { cache } from "react";
 import ProductPage from "@/app/components/ProductPage";
 import { notFound } from "next/navigation";
 import { getProductById, getProductsByCategory } from "@/app/actions/productActions";
@@ -6,10 +7,15 @@ interface ProductPageParams {
   id: string;
 }
 
+// Deduplicate getProductById across generateMetadata and page render
+const getCachedProduct = cache(async (id: string) => {
+  return getProductById(id);
+});
+
 export async function generateMetadata({ params }: { params: Promise<ProductPageParams> }) {
   const { id } = await params;
-  const product = await getProductById(id);
-  
+  const product = await getCachedProduct(id);
+
   if (!product) {
     return {
       title: "Product Not Found | Fittara",
@@ -30,8 +36,8 @@ export async function generateMetadata({ params }: { params: Promise<ProductPage
 
 export default async function IndividualProductPage({ params }: { params: Promise<ProductPageParams> }) {
   const { id } = await params;
-  const product = await getProductById(id);
-  
+  const product = await getCachedProduct(id);
+
   if (!product) {
     notFound();
   }
@@ -41,9 +47,9 @@ export default async function IndividualProductPage({ params }: { params: Promis
   const filteredRelatedProducts = relatedProducts.filter(p => p.id !== product.id).slice(0, 4);
 
   return (
-    <ProductPage 
-      product={product} 
-      relatedProducts={filteredRelatedProducts} 
+    <ProductPage
+      product={product}
+      relatedProducts={filteredRelatedProducts}
     />
   );
 }
