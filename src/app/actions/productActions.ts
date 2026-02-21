@@ -54,8 +54,8 @@ export async function getProductsByCategory(category: string) {
   try {
     // Map category parameter to database category values
     let categoryFilter: string | string[];
-    if (category === 'pant') {
-      categoryFilter = ['modern', 'classic']; // Both pant categories
+    if (category === 'pant' || category === 'modern' || category === 'classic') {
+      categoryFilter = ['pant', 'modern', 'classic']; // All pant-related categories
     } else {
       categoryFilter = category; // 'shirt', 'modern', or 'classic'
     }

@@ -428,7 +428,7 @@ const ProductRow = ({
                       <span className="text-xs text-[#000000] cursor-pointer hover:underline">Size Guide</span>
                     </div>
                     <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide -mx-2 px-2 snap-x">
-                      {["XS", "S", "M", "L", "XL", "XXL"].map((size) => (
+                      {["XS", "S", "M", "L", "XL", "XXL", "3XL"].map((size) => (
                         <button
                           key={size}
                           onClick={() => setSelectedSize(prev => prev === size ? "" : size)}
@@ -560,15 +560,7 @@ export default function ProductsPage() {
             Tailored perfection, designed for the modern connoisseur
           </p>
 
-          <div className="flex justify-center space-x-2 mb-8">
-            {[...Array(5)].map((_, i) => (
-              <FaStar
-                key={i}
-                className="text-white text-2xl"
-                style={{ animationDelay: `${i * 0.1}s` }}
-              />
-            ))}
-          </div>
+
         </div>
       </div>
 

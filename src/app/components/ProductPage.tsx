@@ -313,18 +313,7 @@ const ProductDetails = ({
             ))}
           </div>
         </div>
-        <div className="bg-gray-800/50 backdrop-blur-sm p-5 rounded-xl border border-gray-700/50">
-          <h3 className="font-semibold text-amber-400 mb-3 uppercase tracking-wider text-xs">Color</h3>
-          <p className="text-gray-300 capitalize">{product.color}</p>
-        </div>
-        <div className="bg-gray-800/50 backdrop-blur-sm p-5 rounded-xl border border-gray-700/50">
-          <h3 className="font-semibold text-amber-400 mb-3 uppercase tracking-wider text-xs">Category</h3>
-          <p className="text-gray-300 capitalize">{product.category}</p>
-        </div>
-        <div className="bg-gray-800/50 backdrop-blur-sm p-5 rounded-xl border border-gray-700/50">
-          <h3 className="font-semibold text-amber-400 mb-3 uppercase tracking-wider text-xs">Size</h3>
-          <p className="text-gray-300">{product.size}</p>
-        </div>
+
       </div>
 
       {/* Description */}
@@ -752,29 +741,17 @@ export default function ProductPage({ product, relatedProducts = [] }: ProductPa
             />
 
             {/* Size Selector */}
-            {(product.size || ((product as any).variants && (product as any).variants?.length > 0)) && (
-              <SizeSelector
-                sizes={(product as any).variants && (product as any).variants?.length > 0
-                  ? Array.from(new Set((product as any).variants.map((v: any) => v.size)))
-                  : [product.size]
-                }
-                selectedSize={selectedSize}
-                onSelect={setSelectedSize}
-                sizeGuideLink={undefined} // Disable old PDF link in favor of table
-              />
-            )}
+            <SizeSelector
+              sizes={["XS", "S", "M", "L", "XL", "XXL", "3XL"]}
+              selectedSize={selectedSize}
+              onSelect={setSelectedSize}
+              sizeGuideLink={undefined}
+            />
 
             {/* Size Guide Section */}
             <SizeGuideSection charts={sizeCharts} />
 
-            {/* Color Swatches */}
-            {product.colors && product.colors.length > 0 && (
-              <ColorSwatches
-                colors={product.colors}
-                selectedColor={selectedColor}
-                onSelect={setSelectedColor}
-              />
-            )}
+
 
             {/* Action Buttons */}
             <ActionButtons
