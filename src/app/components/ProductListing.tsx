@@ -456,14 +456,6 @@ function ProductListingInner({ sections, pageTitle, subTitle, initialProducts }:
                                   <FaHeart className={inWishlist ? "text-red-400" : ""} />
                                   {inWishlist ? "In Wishlist" : "Add to Wishlist"}
                                 </button>
-                                <button
-                                  onClick={() => {
-                                    window.open("https://docs.google.com/forms/d/e/1FAIpQLSdXkEPO-4NSrIbXnjF_p2iKBHBYua4EIzYAW-EK3xb1x8lOUg/viewform", "_blank");
-                                  }}
-                                  className="w-full py-2.5 cursor-pointer bg-transparent text-amber-400 border border-amber-500/50 hover:bg-amber-500/10 text-sm font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-1.5 transform hover:-translate-y-0.5"
-                                >
-                                  Need Customization
-                                </button>
                               </SignedIn>
                               <SignedOut>
                                 <button className="w-full py-2.5 bg-gray-800 text-gray-500 text-sm font-medium rounded-lg cursor-not-allowed border border-gray-700">

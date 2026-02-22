@@ -617,11 +617,11 @@ export default function ProductPage({ product, relatedProducts = [] }: ProductPa
   // Fabric options with pricing
   const fabricOptions: Record<string, Record<string, number>> = {
     shirt: {
-      "Wrinkle free Korean fabric": 899
+      "Wrinkle free Korean fabric": 799
     },
     pant: {
       "Regular stretch fabric": 799,
-      "Korean premium twill": 799
+      "Korean premium twill": 1199
     }
   };
 
